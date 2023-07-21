@@ -1,4 +1,4 @@
-package com.houttuynia.web.druid;
+package com.houttuynia.core.druid;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;

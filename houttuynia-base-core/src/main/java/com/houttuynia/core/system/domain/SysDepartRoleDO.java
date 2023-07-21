@@ -1,4 +1,4 @@
-package com.houttuynia.web.system.domain;
+package com.houttuynia.core.system.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -8,12 +8,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 角色表
- * @TableName sys_role
+ * 部门角色关联表
+ * @TableName sys_depart_role
  */
-@TableName(value ="sys_role")
+@TableName(value ="sys_depart_role")
 @Data
-public class SysRoleDO implements Serializable {
+public class SysDepartRoleDO implements Serializable {
     /**
      * 
      */
@@ -21,20 +21,14 @@ public class SysRoleDO implements Serializable {
     private String id;
 
     /**
-     * 角色名称
+     * 角色id
      */
-    private String roleName;
+    private String roleId;
 
     /**
-     * 角色编码
-角色编码
+     * 部门id
      */
-    private String roleCode;
-
-    /**
-     * 描述
-     */
-    private String description;
+    private String departId;
 
     /**
      * 

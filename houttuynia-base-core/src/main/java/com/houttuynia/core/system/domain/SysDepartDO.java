@@ -1,4 +1,4 @@
-package com.houttuynia.web.system.domain;
+package com.houttuynia.core.system.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

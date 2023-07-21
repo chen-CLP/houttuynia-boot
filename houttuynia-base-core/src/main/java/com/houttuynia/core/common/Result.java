@@ -1,7 +1,7 @@
-package com.houttuynia.web.common;
+package com.houttuynia.core.common;
 
 
-import com.houttuynia.web.common.constant.CommonConstant;
+import com.houttuynia.core.common.constant.CommonConstant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.houttuynia.web.utils;
+package com.houttuynia.core.utils;
 
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;

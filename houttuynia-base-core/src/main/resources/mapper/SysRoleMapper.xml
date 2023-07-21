@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.houttuynia.web.system.mapper.SysRoleMapper">
+<mapper namespace="com.houttuynia.core.system.mapper.SysRoleMapper">
 
-    <resultMap id="BaseResultMap" type="com.houttuynia.web.system.domain.SysRoleDO">
+    <resultMap id="BaseResultMap" type="com.houttuynia.core.system.domain.SysRoleDO">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
             <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>

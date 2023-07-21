@@ -1,9 +1,9 @@
 package com.houttuynia.web.system.controller;
 
-import com.houttuynia.web.common.Result;
+import com.houttuynia.core.common.Result;
 import com.houttuynia.web.system.form.LoginUserForm;
-import com.houttuynia.web.utils.RandImageUtil;
-import com.houttuynia.web.utils.RedisUtil;
+import com.houttuynia.core.utils.RandImageUtil;
+import com.houttuynia.core.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

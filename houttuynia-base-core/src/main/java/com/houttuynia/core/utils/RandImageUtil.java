@@ -1,4 +1,4 @@
-package com.houttuynia.web.utils;
+package com.houttuynia.core.utils;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +16,6 @@ import java.util.Random;
  */
 public class RandImageUtil {
 
-    public static final String KEY = "JEECG_LOGIN_KEY";
     /**
      * 定义图形大小
      */

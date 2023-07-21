@@ -1,4 +1,4 @@
-package com.houttuynia.web.security.config;
+package com.houttuynia.core.security.config;
 
 import lombok.Getter;
 import lombok.Setter;

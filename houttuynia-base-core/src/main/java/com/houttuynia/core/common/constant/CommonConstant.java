@@ -1,4 +1,4 @@
-package com.houttuynia.web.common.constant;
+package com.houttuynia.core.common.constant;
 
 /**
  * CommonConstant

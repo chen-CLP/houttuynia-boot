@@ -1,9 +1,9 @@
-package com.houttuynia.web.system.service.impl;
+package com.houttuynia.core.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.houttuynia.web.system.domain.SysRoleDO;
-import com.houttuynia.web.system.service.SysRoleService;
-import com.houttuynia.web.system.mapper.SysRoleMapper;
+import com.houttuynia.core.system.domain.SysRoleDO;
+import com.houttuynia.core.system.mapper.SysRoleMapper;
+import com.houttuynia.core.system.service.SysRoleService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 */
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleDO>
-    implements SysRoleService{
+    implements SysRoleService {
 
 }
 

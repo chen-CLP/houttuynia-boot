@@ -1,6 +1,6 @@
-package com.houttuynia.web.system.service;
+package com.houttuynia.core.system.service;
 
-import com.houttuynia.web.system.domain.SysDepartRoleDO;
+import com.houttuynia.core.system.domain.SysDepartRoleDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

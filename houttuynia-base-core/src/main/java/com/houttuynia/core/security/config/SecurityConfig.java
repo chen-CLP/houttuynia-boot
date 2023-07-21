@@ -1,4 +1,4 @@
-package com.houttuynia.web.security.config;
+package com.houttuynia.core.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

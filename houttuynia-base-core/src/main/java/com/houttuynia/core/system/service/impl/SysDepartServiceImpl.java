@@ -1,9 +1,9 @@
-package com.houttuynia.web.system.service.impl;
+package com.houttuynia.core.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.houttuynia.web.system.domain.SysDepartDO;
-import com.houttuynia.web.system.service.SysDepartService;
-import com.houttuynia.web.system.mapper.SysDepartMapper;
+import com.houttuynia.core.system.domain.SysDepartDO;
+import com.houttuynia.core.system.mapper.SysDepartMapper;
+import com.houttuynia.core.system.service.SysDepartService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 */
 @Service
 public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepartDO>
-    implements SysDepartService{
+    implements SysDepartService {
 
 }
 

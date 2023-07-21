@@ -1,6 +1,6 @@
-package com.houttuynia.web.system.mapper;
+package com.houttuynia.core.system.mapper;
 
-import com.houttuynia.web.system.domain.SysDepartDO;
+import com.houttuynia.core.system.domain.SysDepartDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
