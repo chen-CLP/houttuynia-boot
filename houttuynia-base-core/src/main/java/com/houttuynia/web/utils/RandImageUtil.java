@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * 登录验证码工具类
  *
- * @author: jeecg-boot
+ * @author: clp
  */
 public class RandImageUtil {
 
