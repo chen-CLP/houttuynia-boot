@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Houttuynia Boot</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link href="/static/iconfont/style.css" type="text/css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <style>
+        body {
+            background: url('/static/images/bg.jpg') no-repeat;
+            color: #fff;
+            font-family: "微软雅黑";
+            font-size: 14px;
+        }
+
+        .wrap1 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto
+        }
+
+        /*把整个屏幕真正撑开--而且能自己实现居中*/
+        .main_content {
+            background: url('/static/images/main_bg.png') repeat;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            float: none;
+            border-radius: 8px;
+            height: 70%;
+            padding-top: 15px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .login_btn {
+            display: block;
+            user-select: none;
+            background: #3872f6;
+            color: #fff;
+            font-family: "Microsoft Himalaya";
+            font-size: 15px;
+            text-align: center;
+            width: 100%;
+            line-height: 55px;
+            height: 50px;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .login_input {
+            width: 100%;
+            border: 1px solid #3872f6;
+            border-radius: 3px;
+            line-height: 40px;
+            padding: 2px 5px 2px 30px;
+            background: none;
+        }
+
+        .verification-code {
+            width: 100%;
+            border: 1px solid #3872f6;
+            border-radius: 3px;
+            line-height: 40px;
+            padding: 2px 5px 2px 30px;
+            background: none;
+        }
+
+        .icon_font {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 21px;
+            color: #3872f6;
+        }
+
+        .font16 {
+            font-size: 16px;
+        }
+
+        .mg-t20 {
+            margin-top: 20px;
+            margin-bottom: 20px !important;
+        }
+
+        .code-a {
+            position: relative;
+            left: 40px;
+        }
+
+        .form-code {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .form-code .form-code-input {
+            width: 210px;
+        }
+
+        .has-error label {
+            position: absolute;
+            top: 45px !important;
+            color: red;
+        }
+
+        .has-error input {
+            border: 1px solid #ff1e00 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container wrap1" style="height:450px;">
+    <h2 class="mg-b20 text-center">Houttuynia Boot</h2>
+    <div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
+        <form id="signupForm">
+            <div class="form-group mg-t20">
+                <i class="icon-user icon_font"></i>
+                <input type="text" class="login_input" id="userName" name="userName" placeholder="请输入用户名"/>
+            </div>
+            <div class="form-group mg-t20">
+                <i class="icon-lock icon_font"></i>
+                <input type="password" class="login_input" id="password" name="password" placeholder="请输入密码"
+                       value=""/>
+            </div>
+            <div class="form-group mg-t20 form-code">
+                <div class="form-code-input">
+                    <i class="glyphicon glyphicon-ok-circle  icon_font" style="top: 13px"></i>
+                    <input type="text" class="verification-code" name="verifyCode" placeholder="请输入验证码"/>
+                </div>
+                <div>
+                    <a href="javascript:void(0);" class="code-a" rel="external nofollow" title="点击更换验证码">
+                        <img id="imgVerify" src="" alt="更换验证码" height="48" width="158"
+                             onclick="getVerify(this);">
+                    </a>
+                </div>
+            </div>
+            <a class="login_btn" id="login">登 录</a>
+        </form>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    const ctx = [[@{ /}]];
+</script>
+<script src="/static/js/jquery/jquery-1.12.2.min.js"></script>
+<script src="/static/js/jquery/jquery.validate.js"></script>
+<script src="/static/js/jquery/jquery.validate.extend.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#login").on('click', function () {
+            if ($("#signupForm").valid()) {
+                // 表单验证通过，可以提交表单
+                login();
+            }
+        });
+        getVerify($("#imgVerify")[0]);
+        $("#signupForm").validate({
+            rules: {
+                userName: {
+                    required: true
+                },
+                passwordI: {
+                    required: true
+                },
+                verifyCode: {
+                    required: false
+                }
+            },
+            messages: {
+                userName: {
+                    required: "*请输入您的用户名",
+                },
+                passwordI: {
+                    required: "*请输入您的密码",
+                },
+                verifyCode: {
+                    required: "*请输入验证码"
+                }
+            }
+        });
+    })
+
+    function getVerify(obj) {
+        obj.src = "/verification?" + Math.random();
+    }
+
+    function login() {
+        let userName = $("#userName").val();
+        let password = $("#password").val();
+        let verifyCode = $("#verifyCode").val();
+        $.ajax({
+            type: "POST",
+            url: ctx + "login",
+            data: {
+                userName, password, verifyCode
+            },
+            success: function (r) {
+                if (r.code == 200) {
+                    // window.location.href = r.url;
+                } else {
+                    $("#imgVerify").click();
+                    $("#password").val("");
+                }
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="include :: PageHead">
+</head>
+<body class="from_default">
+<div class="home_page" id="infoContent">
+
+    <div class="error_c">
+        <h4>出错啦</h4>
+        <p>
+        <ul>
+            <li>请求地址：<span th:text="${url}"></span></li>
+            <li>错误代码：<span th:text="${code}"></span></li>
+            <li>错误消息：<span th:text="${msg}"></span></li>
+        </ul>
+        </p>
+        <p>
+        </p>
+    </div>
+</div>
+</body>
+</html>

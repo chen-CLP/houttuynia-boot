@@ -1,0 +1,53 @@
+server:
+  port: 8080
+spring:
+
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://1.14.100.139:3306/houttuynia-boot?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    maxWait: 86400
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    maxEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,slf4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    useGlobalDataSourceStat: true
+  redis:
+    host: 1.14.100.139
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 10
+        max-active: 100
+        max-wait: -1
+    timeout: 1800
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: null
+    call-setters-on-nulls: true
+    return-instance-for-empty-row: true
+    default-executor-type: SIMPLE
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: mapper/**/*Mapper.xml
+  typeAliasesPackage: com.houttuynia.**.**.domain
+config:
+  security:
+    ignored:
+      - /**/login/**/
+      - /**/logout/**/
+      - /**/druid/**/

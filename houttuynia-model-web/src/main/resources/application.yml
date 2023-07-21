@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: houttuynia-boot
+  profiles:
+    active: dev
+  max-http-header-size: 65536
+  thymeleaf:
+    cache: false        # 禁用缓存
+    mode: LEGACYHTML5   # 非严格型检查,默认是html 严格检查
+    prefix: classpath:/templates/
+  mvc:
+    static-path-pattern: /static/**
