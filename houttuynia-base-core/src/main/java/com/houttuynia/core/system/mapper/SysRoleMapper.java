@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Entity com.houttuynia.core.system.domain.SysRole
  */
 @Mapper
-
 public interface SysRoleMapper extends BaseMapper<SysRoleDO> {
 
 }

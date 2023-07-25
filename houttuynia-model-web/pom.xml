@@ -47,7 +47,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <fork>true</fork><!--必须添加这个配置-->
+                    <fork>true</fork>
                     <addResources>true</addResources>
                     <excludes>
                         <exclude>

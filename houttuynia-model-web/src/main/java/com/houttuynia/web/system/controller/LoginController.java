@@ -1,17 +1,27 @@
 package com.houttuynia.web.system.controller;
 
 import com.houttuynia.core.common.Result;
+import com.houttuynia.core.system.service.SysRoleService;
+import com.houttuynia.core.system.service.SysUserService;
+import com.houttuynia.core.utils.JwtTokenUtil;
 import com.houttuynia.web.system.form.LoginUserForm;
 import com.houttuynia.core.utils.RandImageUtil;
 import com.houttuynia.core.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Login
@@ -26,6 +36,12 @@ public class LoginController {
     private RedisUtil redisUtil;
     private static final String CODE_KEY = "LOGIN_CODE_KEY";
     private static final Integer LOSE_TIME = 30;
+    @Resource
+    private UserDetailsService userDetailsService;
+    @Resource
+    private PasswordEncoder passwordEncoder;
+    @Resource
+    private JwtTokenUtil jwtTokenUtil;
 
     @GetMapping({"/"})
     public String welcome(HttpServletResponse response) {
@@ -45,12 +61,34 @@ public class LoginController {
     /**
      * 登录
      *
-     * @param loginUserForm
+     * @param userForm
      * @return
      */
     @ResponseBody
     @PostMapping("/login")
-    public Result login(LoginUserForm loginUserForm) {
+    public Result login(HttpServletRequest request, LoginUserForm userForm) {
+        String sessionId = request.getSession().getId();
+        String code = (String) redisUtil.get(sessionId);
+        if (Objects.isNull(code)) {
+
+        }
+        if (!code.equals(userForm.getVerifyCode())) {
+
+        }
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userForm.getUserName());
+        if (Objects.isNull(userDetails)) {
+
+        }
+        if (!passwordEncoder.matches(userForm.getPassword(), userDetails.getPassword())) {
+
+        }
+        //登录成功处理将数据放入SecurityContextHolder
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        //生成token
+        String token = jwtTokenUtil.generateToken(userDetails);
+        String tokenHead = jwtTokenUtil.getTokenHead();
+        request.getSession().setAttribute(tokenHead, token);
         return Result.ok();
     }
 
@@ -76,5 +114,10 @@ public class LoginController {
         redisUtil.set(sessionId, code, LOSE_TIME);
         log.info("{}登录验证码：{}", sessionId, request.getRequestURI(), code);
         RandImageUtil.generate(response, code);
+    }
+
+    @GetMapping("/index")
+    public String index() {
+        return "index";
     }
 }

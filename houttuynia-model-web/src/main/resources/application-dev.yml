@@ -7,7 +7,7 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://1.14.100.139:3306/houttuynia-boot?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
       username: root
-      password: 123456
+      password: uYJAEAx5hR
     initialSize: 1
     minIdle: 3
     maxActive: 20
@@ -45,9 +45,18 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: mapper/**/*Mapper.xml
   typeAliasesPackage: com.houttuynia.**.**.domain
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: houttuynia-boot #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
 config:
   security:
     ignored:
-      - /**/login/**/
-      - /**/logout/**/
-      - /**/druid/**/
+      urls:
+        - /login/**
+        - /logout/**
+        - /druid/**
+        - /static/**
+        - /verification/**
+        - /js/**
+        - /

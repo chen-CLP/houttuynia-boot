@@ -15,7 +15,6 @@ import java.util.Random;
  * @author: clp
  */
 public class RandImageUtil {
-
     /**
      * 定义图形大小
      */
