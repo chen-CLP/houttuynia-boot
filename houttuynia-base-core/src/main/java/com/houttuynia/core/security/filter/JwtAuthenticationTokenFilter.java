@@ -1,9 +1,9 @@
 package com.houttuynia.core.security.filter;
 
 import com.houttuynia.core.utils.JwtTokenUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,12 +22,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * JWT登录授权过滤器
- * Created by macro on 2018/4/26.
+ * @author clp
  */
+@Slf4j
 @Configuration
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
     @Resource
     private UserDetailsService userDetailsService;
     @Resource
@@ -44,15 +43,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (Objects.isNull(authToken)) {
             authToken = (String) request.getSession().getAttribute(jwtTokenUtil.getTokenHead());
         }
-        if (authToken != null ) {
+        if (authToken != null) {
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
-            LOGGER.info("checking username:{}", username);
+            log.info("checking username:{}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    LOGGER.info("authenticated user:{}", username);
+                    log.info("authenticated user:{}", username);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
