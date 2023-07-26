@@ -1,6 +1,6 @@
 package com.houttuynia.core.security.config;
 
-import com.houttuynia.core.security.filter.JwtAuthenticationTokenFilter;
+//import com.houttuynia.core.security.filter.JwtAuthenticationTokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,8 +20,8 @@ import javax.annotation.Resource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private IgnoreUrlsConfig ignoreUrlsConfig;
-    @Resource
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+//    @Resource
+//    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
 
     @Bean
@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //其他的全部进行权限拦截
         httpSecurity.authorizeRequests().anyRequest().authenticated();
         //添加jwt过滤器
-        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+//        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 }
