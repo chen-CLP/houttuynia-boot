@@ -1,6 +1,8 @@
 package com.houttuynia.core.security.config;
 
 //import com.houttuynia.core.security.filter.JwtAuthenticationTokenFilter;
+
+import com.houttuynia.core.security.filter.JwtTokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,9 +22,9 @@ import javax.annotation.Resource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private IgnoreUrlsConfig ignoreUrlsConfig;
-//    @Resource
-//    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
+    //    @Resource
+    private JwtTokenFilter jwtTokenFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
                 .authorizeRequests();
         //关闭跨域保护
@@ -50,10 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         for (String url : ignoreUrlsConfig.getUrls()) {
             registry.antMatchers(url).permitAll();
         }
+        httpSecurity.formLogin().loginPage("/").failureForwardUrl("/index");
         //其他的全部进行权限拦截
         httpSecurity.authorizeRequests().anyRequest().authenticated();
+//        httpSecurity.addFilterBefore(corsFilter, ChannelProcessingFilter.class);
         //添加jwt过滤器
-//        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 }
