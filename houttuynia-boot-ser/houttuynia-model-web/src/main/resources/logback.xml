@@ -9,5 +9,5 @@
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
-    <logger name="org.springframework.security" level="ERROR"/>
+    <logger name="org.springframework.security" level="DEBUG"/>
 </configuration>

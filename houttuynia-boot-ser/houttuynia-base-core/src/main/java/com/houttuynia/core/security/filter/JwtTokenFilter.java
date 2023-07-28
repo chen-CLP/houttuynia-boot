@@ -41,22 +41,22 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
-        if (Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
-            String authToken = request.getHeader(this.tokenHeader);
-            if (authToken != null) {
-                String username = jwtTokenUtil.getUserNameFromToken(authToken);
-                log.info("checking username:{}", username);
-                if (StringUtils.hasLength(username)) {
-                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                    if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        log.info("authenticated user:{}", username);
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
-                    }
-                }
-            }
-        }
+//        if (Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
+//            String authToken = request.getHeader(this.tokenHeader);
+//            if (authToken != null) {
+//                String username = jwtTokenUtil.getUserNameFromToken(authToken);
+//                log.info("checking username:{}", username);
+//                if (StringUtils.hasLength(username)) {
+//        UserDetails userDetails = this.userDetailsService.loadUserByUsername("admin");
+//        if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+//        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//            log.info("authenticated user:{}", username);
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//    }
+//                }
+//            }
+//        }
         chain.doFilter(request, response);
     }
 }

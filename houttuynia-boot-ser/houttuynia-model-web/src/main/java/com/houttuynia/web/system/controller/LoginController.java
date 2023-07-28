@@ -83,7 +83,7 @@ public class LoginController {
 
         }
         //登录成功处理将数据放入SecurityContextHolder
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //生成token
         String token = jwtTokenUtil.generateToken(userDetails);

@@ -1,6 +1,5 @@
 <template>
   <div class="content-wrapper">
-    <div class="row w-100 mx-0">
       <div class="col-lg-4 mx-auto">
         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
           <div class="brand-logo">
@@ -42,7 +41,6 @@
         </div>
       </div>
       <!-- content-wrapper ends -->
-    </div>
     <!-- page-body-wrapper ends -->
   </div>
 </template>
