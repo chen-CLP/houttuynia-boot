@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.houttuynia.core.system.mapper.SysUserMapper">
+<mapper namespace="com.houttuynia.web.system.mapper.SysUserMapper">
 
-    <resultMap id="BaseResultMap" type="com.houttuynia.core.system.domain.SysUserDO">
+    <resultMap id="BaseResultMap" type="com.houttuynia.web.system.domain.SysUserDO">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="userName" column="user_name" jdbcType="VARCHAR"/>
             <result property="userSex" column="user_sex" jdbcType="VARCHAR"/>

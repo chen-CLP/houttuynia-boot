@@ -1,8 +1,6 @@
 package com.houttuynia.web.system.controller;
 
 import com.houttuynia.core.common.Result;
-import com.houttuynia.core.system.service.SysRoleService;
-import com.houttuynia.core.system.service.SysUserService;
 import com.houttuynia.core.utils.JwtTokenUtil;
 import com.houttuynia.web.system.form.LoginUserForm;
 import com.houttuynia.core.utils.RandImageUtil;
@@ -14,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -43,6 +40,7 @@ public class LoginController {
     @Resource
     private JwtTokenUtil jwtTokenUtil;
 
+
     @GetMapping({"/"})
     public String welcome(HttpServletResponse response) {
         return "redirect:/login";
@@ -56,40 +54,6 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    /**
-     * 登录
-     *
-     * @param userForm
-     * @return
-     */
-    @ResponseBody
-    @PostMapping("/login")
-    public Result login(HttpServletRequest request, LoginUserForm userForm) {
-        String sessionId = request.getSession().getId();
-        String code = (String) redisUtil.get(sessionId);
-        if (Objects.isNull(code)) {
-
-        }
-        if (!code.equals(userForm.getVerifyCode())) {
-
-        }
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userForm.getUserName());
-        if (Objects.isNull(userDetails)) {
-
-        }
-        if (!passwordEncoder.matches(userForm.getPassword(), userDetails.getPassword())) {
-
-        }
-        //登录成功处理将数据放入SecurityContextHolder
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        //生成token
-        String token = jwtTokenUtil.generateToken(userDetails);
-        String tokenHead = jwtTokenUtil.getTokenHead();
-        request.getSession().setAttribute(tokenHead, token);
-        return Result.ok();
     }
 
     @GetMapping("/logout")

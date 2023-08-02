@@ -11,7 +11,6 @@ export const constantRouterMap = [
   {
     path: '/',
     name: 'HelloWorld',
-    component: () => import('@/components/HelloWorld'),
   },
 ]
 export default new Router({
