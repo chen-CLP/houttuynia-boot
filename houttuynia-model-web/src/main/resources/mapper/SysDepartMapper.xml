@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.houttuynia.web.system.mapper.SysDepartMapper">
+<mapper namespace="d.mapper.SysDepartMapper">
 
-    <resultMap id="BaseResultMap" type="com.houttuynia.web.system.domain.SysDepartDO">
+    <resultMap id="BaseResultMap" type="d.domain.SysDepartDO">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
             <result property="departName" column="depart_name" jdbcType="VARCHAR"/>
@@ -12,8 +12,8 @@
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="createBy" column="create_by" jdbcType="BIGINT"/>
-            <result property="updateBy" column="update_by" jdbcType="BIGINT"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
             <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
     </resultMap>
 
