@@ -58,8 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //关闭跨域保护
         httpSecurity.cors().disable();
         httpSecurity.csrf().disable();
+        //放行iframe
+        httpSecurity.headers().frameOptions().sameOrigin();
         //关闭通过session获取SecurityContext
-//        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //放行所有请求方式
         registry.antMatchers(HttpMethod.OPTIONS).permitAll();
         //不需要保护的资源路径允许访问

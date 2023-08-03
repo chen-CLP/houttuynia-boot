@@ -7,6 +7,7 @@ import com.houttuynia.web.system.mapper.SysMenuMapper;
 import com.houttuynia.web.system.vo.MenuVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.ListUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +34,14 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
     private List<MenuVo> createMenList(String menuId, Map<String, List<SysMenuDO>> groupList) {
         List<MenuVo> res = new ArrayList<>();
         List<SysMenuDO> childList = groupList.get(menuId);
-        childList.forEach(item -> {
-            MenuVo tm = new MenuVo();
-            BeanUtils.copyProperties(item, tm);
-            tm.setChildren(createMenList(item.getId(), groupList));
-            res.add(tm);
-        });
+        if (!ListUtils.isEmpty(childList)) {
+            childList.forEach(item -> {
+                MenuVo tm = new MenuVo();
+                BeanUtils.copyProperties(item, tm);
+                tm.setChildren(createMenList(item.getId(), groupList));
+                res.add(tm);
+            });
+        }
         return res;
     }
 

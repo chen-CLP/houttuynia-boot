@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="/static/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
+    <style>
+        .content-iframe {
+            width: 100%;
+            border: none;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 <div class="container-scroller">
@@ -95,28 +102,30 @@
     </nav>
     <div class="container-fluid page-body-wrapper">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <ul class="nav">
+
+            <ul class="nav" th:each="menuItem,menuSta:${menuList}">
                 <li class="nav-item active">
                     <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
                        aria-controls="ui-basic">
                         <i class="mdi mdi-menu menu-icon"></i>
-                        <span class="menu-title">系统管理</span>
+                        <span class="menu-title" th:text="${menuItem.menuName}"></span>
                         <i class="menu-arrow"></i>
                     </a>
                     <div class="collapse" id="ui-basic">
-                        <ul class="nav flex-column sub-menu">
+                        <ul class="nav flex-column sub-menu" th:each="childItem,childSta:${menuItem.children}">
                             <li class="nav-item">
-                                <a class="nav-link" href="pages/ui-features/buttons.html">菜单管理</a>
+                                <a class="nav-link" th:href="${childItem.menuUrl}" th:text="${childItem.menuName}"></a>
                             </li>
                         </ul>
                     </div>
                 </li>
             </ul>
+
         </nav>
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
-
+                <iframe src="/system/menu/list" class="content-iframe"></iframe>
             </div>
             <!--底部-->
             <footer class="footer">
@@ -136,6 +145,11 @@
 <script src="/static/js/jquery.dataTables.js"></script>
 <script src="/static/js/dataTables.bootstrap4.js"></script>
 <script src="/static/js/jquery.cookie.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+
+    })
+</script>
 </body>
 
 </html>
