@@ -12894,8 +12894,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid #e7eaed;
-  border-radius: 0;
+
 }
 
 .card > hr {
@@ -12920,6 +12919,8 @@ input[type="button"].btn-block {
 
 .card-title {
   margin-bottom: 0.75rem;
+  border-bottom: 1px solid #e7eaed;
+  border-radius: 0;
 }
 
 .card-subtitle {
@@ -21143,7 +21144,6 @@ dl li {
   overflow: hidden;
   flex-wrap: nowrap;
   flex-direction: column;
-  margin-bottom: 60px;
 }
 
 .sidebar .nav .nav-item {
