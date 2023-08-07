@@ -54,7 +54,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             String oldCode = (String) redisUtil.get(sessionId);
             String verifyCode = (String) userInfo.get("verifyCode");
             if (Objects.isNull(oldCode) || !Objects.equals(oldCode, verifyCode)) {
-                throw new AuthenticationServiceException("验证码错误");
+//                throw new AuthenticationServiceException("验证码错误");
             }
             String userName = (String) userInfo.get("userName");
             String password = (String) userInfo.get("password");

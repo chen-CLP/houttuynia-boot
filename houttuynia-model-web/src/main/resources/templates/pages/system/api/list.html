@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <head th:include="include::header"></head>
@@ -9,11 +9,14 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
+            height: 741px;
+            padding: 2px;
+            overflow: hidden;
         }
 
         .table-responsive .table-left {
             flex: 1;
-            height: 692px;
+            height: 736px;
             border: 2px #f5f5f5 solid;
             border-radius: 2px;
         }
@@ -38,30 +41,99 @@
         }
 
         .table-responsive .table-right {
+            height: 736px;
             flex: 5;
+        }
+
+        .btn-box {
+            caret-color: transparent;
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+            cursor: pointer;
+            z-index: 1;
+            height: 50px;
+            width: 8px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-box:hover {
+            background: #00ff00 !important;
+        }
+
+        .btn-box .fa {
+            width: 20px;
+            height: 20px;
+            transform: rotate(90deg);
+        }
+
+        .btn-box .fa-close {
+            transform: rotate(-90deg) !important;
+        }
+
+        .table-right {
+            flex: 4;
+            height: 741px;
+            border: 2px #f5f5f5 solid;
+            border-radius: 2px;
+        }
+
+        .table-responsive .table-right .right-header {
+            height: 40px;
+            border-bottom: 1px #f5f5f5 solid;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
 <div class="container-scroller">
     <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <div class="table-left">
-                    <div class="left-header">
-                        <div class="header-title">数据接口</div>
-                    </div>
-                    <div class="table-list">
-                        <ul>
-                            <li>测试1</li>
-                            <li>测试2</li>
-                        </ul>
-                    </div>
+        <div class="table-responsive">
+            <div class="table-left" id="left">
+                <div class="left-header">
+                    <div class="header-title">数据接口</div>
                 </div>
-                <div class="table-right"></div>
+                <div class="table-list">
+                    <ul>
+                        <li>测试1</li>
+                        <li>测试2</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="btn-box">
+                <img class="fa" src="/static/images/down.png" onclick="handleFold()"/>
+            </div>
+            <div class="table-right">
+                <div class="right-header">
+                    <ul>
+                        <li>基本信息</li>
+                    </ul>
+                </div>
+                <div class="right-content"></div>
             </div>
         </div>
     </div>
 </div>
+<div th:include="include::footerJs"></div>
+<script type="text/javascript">
+    function handleFold() {
+        let $tableLeft = $(".table-left")[0];
+        let $fa = $(".fa")[0];
+        if ($tableLeft.style.display === 'none') {
+            $tableLeft.style.display = '';
+            $fa.classList.remove("fa-close");
+        } else {
+            $tableLeft.style.display = 'none';
+            $fa.classList.add("fa-close");
+        }
+    }
+</script>
 </body>
+
 </html>
