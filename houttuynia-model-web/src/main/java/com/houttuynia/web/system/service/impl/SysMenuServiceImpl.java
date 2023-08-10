@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
         implements SysMenuService {
     private static final String BASE_MENU_ID = "0";
+    private SysMenuMapper sysMenuMapper;
 
     @Override
     public List<MenuVo> getMenuList() {
@@ -43,6 +44,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
             });
         }
         return res;
+    }
+
+    public List<MenuVo> test() {
+        return sysMenuMapper.test();
+
     }
 
 }

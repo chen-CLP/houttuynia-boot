@@ -3,93 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <head th:include="include::header"></head>
-    <style>
-        .table-responsive {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            height: 741px;
-            padding: 2px;
-            overflow: hidden;
-        }
-
-        .table-responsive .table-left {
-            flex: 1;
-            height: 736px;
-            border: 2px #f5f5f5 solid;
-            border-radius: 2px;
-        }
-
-        .header-font {
-            font-family: "Microsoft Himalaya";
-        }
-
-        .table-responsive .table-left .left-header {
-            height: 40px;
-            border-bottom: 1px #f5f5f5 solid;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .table-responsive .table-left .table-list {
-            max-height: 592px;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-
-        .table-responsive .table-right {
-            height: 736px;
-            flex: 5;
-        }
-
-        .btn-box {
-            caret-color: transparent;
-            padding: 0px;
-            margin: 0px;
-            overflow: hidden;
-            cursor: pointer;
-            z-index: 1;
-            height: 50px;
-            width: 8px;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-box:hover {
-            background: #00ff00 !important;
-        }
-
-        .btn-box .fa {
-            width: 20px;
-            height: 20px;
-            transform: rotate(90deg);
-        }
-
-        .btn-box .fa-close {
-            transform: rotate(-90deg) !important;
-        }
-
-        .table-right {
-            flex: 4;
-            height: 741px;
-            border: 2px #f5f5f5 solid;
-            border-radius: 2px;
-        }
-
-        .table-responsive .table-right .right-header {
-            height: 40px;
-            border-bottom: 1px #f5f5f5 solid;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/api-style.css">
 </head>
 <body>
 <div class="container-scroller">
@@ -101,8 +15,8 @@
                 </div>
                 <div class="table-list">
                     <ul>
-                        <li>测试1</li>
-                        <li>测试2</li>
+                        <li><span>测试1</span></li>
+                        <li><span>测试2</span></li>
                     </ul>
                 </div>
             </div>
@@ -115,13 +29,74 @@
                         <li>基本信息</li>
                     </ul>
                 </div>
-                <div class="right-content"></div>
+                <div class="right-content">
+                    <div class="operation-btn">
+                        <button type="button" class="btn btn-outline-primary btn-fw btn-sm" onclick="handleSubmit()">
+                            保存
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-fw btn-sm">重置</button>
+                        <button type="button" class="btn btn-outline-danger btn-fw btn-sm">删除</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form class="form-sample" id="apiForm">
+                                        <p class="card-description">
+                                            接口配置
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">接口名称</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="name"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">接口地址</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="url" readonly
+                                                               value="/ss"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">接口说明</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="name"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="card-description">
+                                            SQL配置
+                                        </p>
+                                        <div class="row editor">
+                                            <textarea id="editorXML" name="sqlConf"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div th:include="include::footerJs"></div>
 <script type="text/javascript">
+
+    function handleSubmit() {
+
+    }
+
     function handleFold() {
         let $tableLeft = $(".table-left")[0];
         let $fa = $(".fa")[0];

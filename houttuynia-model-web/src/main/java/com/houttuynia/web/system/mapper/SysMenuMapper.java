@@ -2,6 +2,9 @@ package com.houttuynia.web.system.mapper;
 
 import com.houttuynia.web.system.domain.SysMenuDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.houttuynia.web.system.vo.MenuVo;
+
+import java.util.List;
 
 /**
  * @author zy
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysMenuMapper extends BaseMapper<SysMenuDO> {
 
+    List<MenuVo> test();
 }
 
 

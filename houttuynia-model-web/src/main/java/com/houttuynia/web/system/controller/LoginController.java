@@ -9,6 +9,7 @@ import com.houttuynia.core.utils.RedisUtil;
 import com.houttuynia.web.system.service.SysMenuService;
 import com.houttuynia.web.system.vo.MenuVo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,7 +42,8 @@ public class LoginController {
     private static final Integer LOSE_TIME = 30;
     @Resource
     private SysMenuService sysMenuService;
-
+    @Resource
+    private SqlSession sqlSession;
 
     @GetMapping({"/"})
     public String welcome(HttpServletResponse response) {
@@ -87,5 +89,11 @@ public class LoginController {
         List<MenuVo> menuList = sysMenuService.getMenuList();
         model.addAttribute("menuList", menuList);
         return "index";
+    }
+
+    @GetMapping("test")
+    @ResponseBody
+    public Object test() {
+        return sqlSession.selectList("com.houttuynia.web.system.mapper.SysMenuMapper1.test");
     }
 }

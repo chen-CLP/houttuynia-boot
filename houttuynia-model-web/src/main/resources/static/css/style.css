@@ -10473,7 +10473,7 @@ pre code {
     color: #495057;
     background-color: #ffffff;
     background-clip: padding-box;
-    border: 1px solid #ced4da;
+    border: 1px solid #1d1e1e;
     border-radius: 2px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -21159,7 +21159,7 @@ code {
 }
 
 .form-control, .dataTables_wrapper select {
-    border: 1px solid #f3f3f3;
+    border: 1px solid #000000;
     font-weight: 400;
     font-size: 0.875rem;
 }
