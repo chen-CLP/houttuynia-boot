@@ -26,10 +26,8 @@
             <div class="table-right">
                 <div class="right-header">
                     <ul>
-                        <li>基本信息</li>
+                        <li>接口配置</li>
                     </ul>
-                </div>
-                <div class="right-content">
                     <div class="operation-btn">
                         <button type="button" class="btn btn-outline-primary btn-fw btn-sm" onclick="handleSubmit()">
                             保存
@@ -37,13 +35,16 @@
                         <button type="button" class="btn btn-outline-secondary btn-fw btn-sm">重置</button>
                         <button type="button" class="btn btn-outline-danger btn-fw btn-sm">删除</button>
                     </div>
+                </div>
+                <div class="right-content">
+
                     <div class="row">
                         <div class="col-12 grid-margin">
                             <div class="card">
                                 <div class="card-body">
                                     <form class="form-sample" id="apiForm">
                                         <p class="card-description">
-                                            接口配置
+                                            基本信息
                                         </p>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -79,6 +80,27 @@
                                         </p>
                                         <div class="row editor">
                                             <textarea id="editorXML" name="sqlConf"></textarea>
+                                        </div>
+                                        <p class="card-description">
+                                            字段配置
+                                        </p>
+                                        <div class="row ">
+                                            <div class="field-content">
+                                                <div class="field-row">
+                                                    <div class="field-item"><label>字段名称</label></div>
+                                                    <div class="field-item"><label>字段备注</label></div>
+                                                    <div class="field-item"><label>字段类型</label></div>
+                                                    <div class="field-item"><label>默认值</label></div>
+                                                    <div class="field-item"><label>允许为空</label></div>
+                                                </div>
+                                                <div class="field-row">
+                                                    <div class="field-item"><input/></div>
+                                                    <div class="field-item"><input/></div>
+                                                    <div class="field-item"><input/></div>
+                                                    <div class="field-item"><input/></div>
+                                                    <div class="field-item"><input/></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
