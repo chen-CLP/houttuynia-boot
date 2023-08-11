@@ -37,7 +37,6 @@
                     </div>
                 </div>
                 <div class="right-content">
-
                     <div class="row">
                         <div class="col-12 grid-margin">
                             <div class="card">
@@ -51,7 +50,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-3 col-form-label">接口名称</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" name="name"/>
+                                                        <input type="text" class="form-control" name="apiName"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,7 +58,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-3 col-form-label">接口地址</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" name="url" readonly
+                                                        <input type="text" class="form-control" name="apiUrl" readonly
                                                                value="/ss"/>
                                                     </div>
                                                 </div>
@@ -70,7 +69,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-3 col-form-label">接口说明</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" name="name"/>
+                                                        <input type="text" class="form-control" name="apiDesc"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -84,7 +83,7 @@
                                         <p class="card-description">
                                             字段配置
                                         </p>
-                                        <div class="row ">
+                                        <div class="row">
                                             <div class="field-content">
                                                 <div class="field-row">
                                                     <div class="field-item"><label>字段名称</label></div>
@@ -92,14 +91,12 @@
                                                     <div class="field-item"><label>字段类型</label></div>
                                                     <div class="field-item"><label>默认值</label></div>
                                                     <div class="field-item"><label>允许为空</label></div>
+                                                    <div class="field-item">
+                                                    </div>
                                                 </div>
-                                                <div class="field-row">
-                                                    <div class="field-item"><input/></div>
-                                                    <div class="field-item"><input/></div>
-                                                    <div class="field-item"><input/></div>
-                                                    <div class="field-item"><input/></div>
-                                                    <div class="field-item"><input/></div>
-                                                </div>
+                                            </div>
+                                            <div class="field-row-add">
+                                                <img src="/static/images/add.png" onclick="handleAddRow()">
                                             </div>
                                         </div>
                                     </form>
@@ -114,9 +111,40 @@
 </div>
 <div th:include="include::footerJs"></div>
 <script type="text/javascript">
+    $(function () {
+        handleAddRow();
+    })
+
+    function handleAddRow() {
+        let $fieldContent = $(".field-content")[0];
+        let tmItem = document.createElement('div');
+        tmItem.innerHTML = `<form class="field-form" id="fieldForm" >
+                                                    <div class="field-item"><input name="fieldName"/></div>
+                                                    <div class="field-item"><input name="fieldDesc"/></div>
+                                                    <div class="field-item"><input name="fieldType"/></div>
+                                                    <div class="field-item"><input name="fieldDefault"/></div>
+                                                    <div class="field-item">
+                                                        <input type="radio" name="isEmpty" value="false" checked> 否
+                                                        <input type="radio" name="isEmpty" value="true"> 是
+                                                    </div>
+                                                     <div class="field-item">
+                                                            <img class="img-del" src="/static/images/del.png"
+                                                                 onclick="handleRemoveRow(this)">
+                                                        </div>
+                                                    </form>`;
+        tmItem.classList.add('field-row');
+        $fieldContent.append(tmItem);
+    }
+
+    function handleRemoveRow(item) {
+        let tm = item.parentElement.parentElement.parentElement;
+        let $fieldContent = $(".field-content")[0];
+        $fieldContent.removeChild(tm);
+    }
 
     function handleSubmit() {
-
+        let data = $("#apiForm").serialize();
+        let dataList = $("#fieldForm")[1].serialize();
     }
 
     function handleFold() {

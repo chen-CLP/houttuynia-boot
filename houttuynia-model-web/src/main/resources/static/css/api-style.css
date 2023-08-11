@@ -131,7 +131,7 @@ ul {
 
 .field-content {
     width: 100%;
-    border: 1px solid #e8e8e8 ;
+    border: 1px solid #e8e8e8;
 }
 
 .field-content .field-row {
@@ -139,13 +139,41 @@ ul {
     align-items: center;
     flex-direction: row;
     justify-content: center;
-    border-bottom: 1px solid #e8e8e8 ;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.field-content .field-row form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .field-content .field-row .field-item {
     flex: 1;
     padding: 4px;
 }
-.field-content .field-row .field-item input{
-    border: 1px solid #e8e8e8 ;
+.field-item .img-del{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+.field-content .field-row .field-item input {
+    border: 1px solid #e8e8e8;
+}
+
+.field-row-add {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.field-row-add img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
 }
