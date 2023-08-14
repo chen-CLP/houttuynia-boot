@@ -3,6 +3,7 @@ package com.houttuynia.web.system.controller;
 import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.houttuynia.core.common.Result;
+import com.houttuynia.core.utils.ArrayUtils;
 import com.houttuynia.web.system.domain.SysApiDO;
 import com.houttuynia.web.system.form.ApiForm;
 import com.houttuynia.web.system.service.SysApiService;
@@ -34,7 +35,7 @@ public class ApiController {
     public Result add(@RequestBody ApiForm form) {
         SysApiDO apiDO = new SysApiDO();
         QueryWrapper<SysApiDO> queryWrapper = new QueryWrapper<>();
-        if (ArrayUtil.isNotEmpty(apiService.list(queryWrapper))) {
+        if (ArrayUtils.isNotEmpty(apiService.list(queryWrapper))) {
             return Result.error("该接口地址已存在");
         }
         BeanUtils.copyProperties(form, apiDO);

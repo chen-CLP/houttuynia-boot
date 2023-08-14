@@ -78,7 +78,7 @@
                                             SQL配置
                                         </p>
                                         <div class="row editor">
-                                            <textarea id="editorXML" name="sqlConf"></textarea>
+                                            <textarea id="editorXML" name="sqlXml"></textarea>
                                         </div>
                                         <p class="card-description">
                                             字段配置
@@ -151,9 +151,19 @@
         for (let i = 0; i < formId; ++i) {
             fieldList.push(serToJson(new FormData(document.getElementById(`fieldForm${i}`))));
         }
+        data.fieldInfo = JSON.stringify(fieldList);
         $.ajax({
             type: "POST",
-            url:"/api/new"
+            url: "/system/api/add",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (res) {
+                console.log(res);
+            },
+            error: function () {
+
+            }
         });
 
     }
