@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.SysApiMapper">
+
+    <resultMap id="BaseResultMap" type="com.houttuynia.web.system.domain.SysApiDO">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="apiName" column="api_name" jdbcType="VARCHAR"/>
+        <result property="apiUrl" column="api_url" jdbcType="VARCHAR"/>
+        <result property="apiDesc" column="api_desc" jdbcType="VARCHAR"/>
+        <result property="sqlXml" column="sql_xml" jdbcType="VARCHAR"/>
+        <result property="fieldInfo" column="field_info" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,api_name,api_url,
+        api_desc,sql_xml,field_info,
+        create_time,update_time,create_by,
+        update_by,del_flag
+    </sql>
+</mapper>
