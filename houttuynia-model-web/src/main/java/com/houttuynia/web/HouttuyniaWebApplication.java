@@ -37,7 +37,6 @@ public class HouttuyniaWebApplication implements ApplicationRunner {
     @ConditionalOnExpression(value = "#{'dev'.equals(environment.getProperty('spring.profiles.active'))}")
     public TomcatConnectorCustomizer customServerPortTomcatConnectorCustomizer() {
         // 开发环境时，首先判断8080d端口是否可用；若可用则直接使用，否则选择一个可用的端口号启动
-        System.out.println("先测试一下");
         int port = SocketUtil.findAvailableTcpPort(8000, 10000, webPort);
         if (port != webPort) {
             log.info("默认端口号{}被占用，随机启用新端口号: {}", webPort, port);
