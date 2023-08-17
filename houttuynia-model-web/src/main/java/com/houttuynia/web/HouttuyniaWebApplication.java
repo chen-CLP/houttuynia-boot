@@ -21,7 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ConfigurationPropertiesScan
 @ServletComponentScan
 @MapperScan("com.houttuynia.**.mapper")
-public class HouttuyniaWebApplication implements ApplicationRunner {
+public class HouttuyniaWebApplication  {
     @Value("${server.port:8080}")
     private Integer webPort;
 
@@ -45,8 +45,4 @@ public class HouttuyniaWebApplication implements ApplicationRunner {
         return connector -> connector.setPort(port);
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-
-    }
 }
