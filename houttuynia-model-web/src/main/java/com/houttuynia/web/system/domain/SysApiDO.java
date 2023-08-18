@@ -1,5 +1,6 @@
 package com.houttuynia.web.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -10,15 +11,16 @@ import java.util.Date;
 
 /**
  * 数据接口表
+ *
  * @TableName sys_api
  */
-@TableName(value ="sys_api")
+@TableName(value = "sys_api")
 @Data
 public class SysApiDO implements Serializable {
     /**
-     * 
+     *
      */
-    @TableId
+    @TableId(type = IdType.NONE)
     private String id;
 
     /**
@@ -47,22 +49,22 @@ public class SysApiDO implements Serializable {
     private String fieldInfo;
 
     /**
-     * 
+     *
      */
     private Date createTime;
 
     /**
-     * 
+     *
      */
     private Date updateTime;
 
     /**
-     * 
+     *
      */
     private String createBy;
 
     /**
-     * 
+     *
      */
     private String updateBy;
 

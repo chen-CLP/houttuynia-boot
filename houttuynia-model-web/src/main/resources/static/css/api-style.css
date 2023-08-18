@@ -22,10 +22,16 @@
 .table-responsive .table-left .left-header {
     height: 40px;
     border-bottom: 1px #f5f5f5 solid;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    padding:10px;
+}
+
+.table-responsive .table-left .left-header .header-title {
+    float: left;
+}
+
+.left-header button {
+    float: right;
+    margin-right: 0px;
 }
 
 .table-responsive .table-left .table-list {
@@ -33,7 +39,9 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
-
+.table-responsive .table-left .table-list .active{
+    background: #e5e5e5;
+}
 .table-responsive .table-right {
     height: 736px;
     flex: 5;
@@ -154,11 +162,13 @@ ul {
     flex: 1;
     padding: 4px;
 }
-.field-item .img-del{
+
+.field-item .img-del {
     width: 15px;
     height: 15px;
     cursor: pointer;
 }
+
 .field-content .field-row .field-item input {
     border: 1px solid #e8e8e8;
 }

@@ -12,11 +12,14 @@
             <div class="table-left" id="left">
                 <div class="left-header">
                     <div class="header-title">数据接口</div>
+                    <button class="btn-add" onclick="handleAddData()"></button>
                 </div>
                 <div class="table-list">
-                    <ul>
-                        <li><span>测试1</span></li>
-                        <li><span>测试2</span></li>
+                    <ul class="table-list-ul">
+                        <li class="mouse-check name-item" th:each="item,index :${list}"
+                            th:onclick="clickInfo([[${item}]],[[${index.index}]])">
+                            <span th:text="${item.apiName}"></span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -50,7 +53,9 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-3 col-form-label">接口名称</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" name="apiName"/>
+                                                        <input type="text" class="form-control" id="apiName"
+                                                               name="apiName"/>
+                                                        <input id="id" name="id" hidden/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,7 +63,8 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-3 col-form-label">接口地址</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" name="apiUrl" readonly
+                                                        <input type="text" class="form-control" id="apiUrl"
+                                                               name="apiUrl" readonly
                                                                value="/ss"/>
                                                     </div>
                                                 </div>
@@ -69,7 +75,8 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-3 col-form-label">接口说明</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" name="apiDesc"/>
+                                                        <input type="text" class="form-control" id="apiDesc"
+                                                               name="apiDesc"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +85,7 @@
                                             SQL配置
                                         </p>
                                         <div class="row editor">
-                                            <textarea id="editorXML" name="sqlConf"></textarea>
+                                            <textarea id="sqlXml" name="sqlXml"></textarea>
                                         </div>
                                         <p class="card-description">
                                             字段配置
@@ -110,24 +117,66 @@
     </div>
 </div>
 <div th:include="include::footerJs"></div>
+<script th:inline="javascript">
+    const dataList = [[${list}]];
+</script>
 <script type="text/javascript">
-
     let formId = 0;
     $(function () {
-        handleAddRow();
+        dataList && clickInfo(dataList[0], 0);
     })
 
-    function handleAddRow() {
+    function handleAddData() {
+        $.ajax({
+            type: "get",
+            url: "/system/api/getId",
+            success: function (res) {
+                if (res.code === 200) {
+                    clickInfo(res.data, $(".name-item").length);
+                }
+            },
+            error: function () {
+
+            }
+        })
+    }
+
+    function clickInfo(info, index) {
+        for (let i = 0; i < $(".name-item").length; ++i) {
+            $(".name-item")[i].classList.remove("active");
+        }
+        $(".name-item")[index] && $(".name-item")[index].classList.add("active");
+        $("#id").val(info.id);
+        $("#apiName").val(info.apiName);
+        $("#apiUrl").val(info.apiUrl);
+        $("#apiDesc").val(info.apiDesc);
+        $("#sqlXml").val(info.sqlXml);
+        let childElements = $(".field-content")[0].getElementsByClassName("field-row");
+        for (let i = 1; i < childElements.length; ++i) {
+            $(".field-content")[0].removeChild(childElements[i]);
+        }
+        formId = 0;
+        if (info.fieldInfo) {
+            let fieldList = JSON.parse(info.fieldInfo);
+            if (fieldList && fieldList instanceof Array && fieldList.length > 0) {
+                fieldList.forEach(item => {
+                    handleAddRow(item);
+                })
+            }
+        }
+    }
+
+    function handleAddRow(info) {
         let $fieldContent = $(".field-content")[0];
         let tmItem = document.createElement('div');
         tmItem.innerHTML = `<form class="field-form" id="fieldForm${formId}" >
-                                                    <div class="field-item"><input name="fieldName"/></div>
-                                                    <div class="field-item"><input name="fieldDesc"/></div>
-                                                    <div class="field-item"><input name="fieldType"/></div>
-                                                    <div class="field-item"><input name="fieldDefault"/></div>
+                                                    <div class="field-item"><input name="fieldName"    value="${info ? info.fieldName : ''}"/></div>
+                                                    <div class="field-item"><input name="fieldDesc"    value="${info ? info.fieldDesc : ''}"/></div>
+                                                    <div class="field-item"><input name="fieldType"    value="${info ? info.fieldType : ''}"/></div>
+                                                    <div class="field-item"><input name="fieldDefault" value="${info ? info.fieldDefault : ''}"/></div>
                                                     <div class="field-item">
-                                                        <input type="radio" name="isEmpty" th:value="${true}" checked> 否
-                                                        <input type="radio" name="isEmpty" th:value="${false}"> 是
+                                                        <input type="radio" name="isEmpty" th:value="0" ${info && info.isEmpty ? '' : 'checked'} > 否
+                                                        <input type="radio" name="isEmpty" th:value="1" ${info && info.isEmpty ? 'checked' : ''} > 是
                                                     </div>
                                                      <div class="field-item">
                                                             <img class="img-del" src="/static/images/del.png"
@@ -142,6 +191,7 @@
     function handleRemoveRow(item) {
         let tm = item.parentElement.parentElement.parentElement;
         let $fieldContent = $(".field-content")[0];
+        formId--;
         $fieldContent.removeChild(tm);
     }
 
@@ -151,9 +201,22 @@
         for (let i = 0; i < formId; ++i) {
             fieldList.push(serToJson(new FormData(document.getElementById(`fieldForm${i}`))));
         }
+        data.fieldInfo = JSON.stringify(fieldList);
         $.ajax({
             type: "POST",
-            url:"/api/new"
+            url: "/system/api/saveOrUpdate",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (res) {
+                if (res.code === 200) {
+                    layer.msg('保存成功！');
+                    updateCurrentPage();
+                }
+            },
+            error: function () {
+
+            }
         });
 
     }

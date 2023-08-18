@@ -22751,4 +22751,20 @@ dl li {
     outline: 1px solid slategrey;
 }
 
+.mouse-check {
+    cursor: pointer;
+}
+
+.btn-add {
+    width: 20px;
+    height: 20px;
+    /* 调整图标在按钮中的位置 */
+    background-color: transparent;
+    background-image: url("/static/images/add-1.png"); /* 替换成你的图标路径 */
+    background-repeat: no-repeat;
+    background-size: contain; /* 或使用 cover，根据需要调整 */
+    background-position: center center; /* 调整图标在按钮中的位置 */
+    border: none; /* 去除按钮的边框 */
+}
+
 /*# sourceMappingURL=maps/style.css.map */

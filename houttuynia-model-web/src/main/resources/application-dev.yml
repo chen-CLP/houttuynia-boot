@@ -54,6 +54,7 @@ jwt:
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
 config:
   security:
+    #白名单配置
     ignored:
       urls:
         - /login/**
@@ -61,4 +62,4 @@ config:
         - /druid/**
         - /static/**
         - /verification/**
-        - /test
+        - /system/api/**

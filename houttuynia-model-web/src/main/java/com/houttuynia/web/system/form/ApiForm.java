@@ -11,6 +11,10 @@ import lombok.Data;
 @Data
 public class ApiForm {
     /**
+     * id
+     */
+    private String id;
+    /**
      * 接口名称
      */
     private String apiName;
