@@ -36,7 +36,8 @@
                             保存
                         </button>
                         <button type="button" class="btn btn-outline-secondary btn-fw btn-sm">重置</button>
-                        <button type="button" class="btn btn-outline-danger btn-fw btn-sm">删除</button>
+                        <button type="button" class="btn btn-outline-danger btn-fw btn-sm" onclick="handleDel()">删除
+                        </button>
                     </div>
                 </div>
                 <div class="right-content">
@@ -141,6 +142,28 @@
         })
     }
 
+    /**
+     * 删除
+     */
+    function handleDel() {
+        let delId = $("#id").val();
+        $.ajax({
+            type: "DELETE",
+            url: `/system/api/${delId}`,
+            success: function (res) {
+                if (res.code === 200) {
+                    layer.msg('删除成功！');
+                    setTimeout(() => {
+                        updateCurrentPage();
+                    }, 1000)
+                }
+            },
+            error: function () {
+
+            }
+        })
+    }
+
     function clickInfo(info, index) {
         for (let i = 0; i < $(".name-item").length; ++i) {
             $(".name-item")[i].classList.remove("active");
@@ -211,7 +234,9 @@
             success: function (res) {
                 if (res.code === 200) {
                     layer.msg('保存成功！');
-                    updateCurrentPage();
+                    setTimeout(() => {
+                        updateCurrentPage();
+                    }, 1000)
                 }
             },
             error: function () {

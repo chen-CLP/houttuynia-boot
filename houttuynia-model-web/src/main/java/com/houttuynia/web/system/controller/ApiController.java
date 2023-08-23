@@ -86,5 +86,18 @@ public class ApiController {
         String nameSpace = SqlUtils.getSelectPath(id);
         return Result.ok().data(sqlSession.selectList(nameSpace, param));
     }
+
+    /**
+     * 删除接口
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public Result delete(@PathVariable String id) {
+        apiService.removeById(id);
+        return Result.ok();
+    }
 }
 
