@@ -26,7 +26,6 @@ public class MenuController {
     public String list(Model model) {
         List<SysMenuDO> menuList = menuService.list();
         model.addAttribute("menuList", menuList);
-        System.out.println(menuList);
         return "pages/system/menu/list";
     }
 }

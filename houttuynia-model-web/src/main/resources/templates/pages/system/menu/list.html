@@ -7,57 +7,53 @@
 <body>
 <div class="container-scroller">
     <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Basic Table</h4>
-            <p class="card-description">
-                Add class <code>.table</code>
-            </p>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Profile</th>
-                        <th>VatNo.</th>
-                        <th>Created</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Jacob</td>
-                        <td>53275531</td>
-                        <td>12 May 2017</td>
-                        <td><label class="badge badge-danger">Pending</label></td>
-                    </tr>
-                    <tr>
-                        <td>Messsy</td>
-                        <td>53275532</td>
-                        <td>15 May 2017</td>
-                        <td><label class="badge badge-warning">In progress</label></td>
-                    </tr>
-                    <tr>
-                        <td>John</td>
-                        <td>53275533</td>
-                        <td>14 May 2017</td>
-                        <td><label class="badge badge-info">Fixed</label></td>
-                    </tr>
-                    <tr>
-                        <td>Peter</td>
-                        <td>53275534</td>
-                        <td>16 May 2017</td>
-                        <td><label class="badge badge-success">Completed</label></td>
-                    </tr>
-                    <tr>
-                        <td>Dave</td>
-                        <td>53275535</td>
-                        <td>20 May 2017</td>
-                        <td><label class="badge badge-warning">In progress</label></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table class="layui-hide" id="ID-treeTable-demo"></table>
     </div>
+    <script type="text/html" id="TPL-treeTable-demo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="getChecked">获取选中数据</button>
+        </div>
+    </script>
+    <script type="text/html" id="TPL-treeTable-demo-tools">
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="addChild">新增</a>
+            <a class="layui-btn layui-btn-xs" lay-event="more">更多 <i class="layui-icon layui-icon-down"></i></a>
+        </div>
+    </script>
+    <div th:include="include::footerJs"></div>
+    <script type="text/javascript">
+        layui.use(function () {
+            let treeTable = layui.treeTable;
+            treeTable.render({
+                elem: '#ID-treeTable-demo',
+                url: '/static/json/demo.json', // 此处为静态模拟数据，实际使用时需换成真实接口
+                tree: {},
+                maxHeight: '501px',
+                toolbar: '#TPL-treeTable-demo',
+                cols: [
+                    [
+                        {type: 'checkbox', fixed: 'left'},
+                        {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'},
+                        {field: 'name', title: '用户名', width: 180, fixed: 'left'},
+                        {field: 'experience', title: '积分', width: 90, sort: true},
+                        {field: 'sex', title: '性别', width: 80, sort: true},
+                        {field: 'score', title: '评分', width: 80, sort: true},
+                        {field: 'city', title: '城市'},
+                        {
+                            fixed: "right",
+                            title: "操作",
+                            width: 181,
+                            align: "center",
+                            toolbar: "#TPL-treeTable-demo-tools"
+                        }
+                    ],
+                ],
+                page: true
+            });
+        });
+    </script>
 </div>
 </body>
+
 </html>

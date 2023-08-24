@@ -33,6 +33,11 @@ public class SysApiServiceImpl extends ServiceImpl<SysApiMapper, SysApiDO>
     @Override
     public void saveOrUpdate(ApiForm form) {
         SysApiDO apiDO = this.getById(form.getId());
+        String strSQL = form.getSqlXml();
+        strSQL.replaceAll("\n", " ");
+        strSQL.replaceAll("\r", " ");
+        strSQL.replaceAll("\t", " ");
+
         String sqlXml = SqlUtils.createSQLXML(form.getId(), form.getSqlXml());
         if (Objects.isNull(apiDO)) {
             apiDO = new SysApiDO();
