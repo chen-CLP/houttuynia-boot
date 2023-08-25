@@ -2,6 +2,7 @@ package com.houttuynia.web.system.controller;
 
 import com.houttuynia.web.system.domain.SysMenuDO;
 import com.houttuynia.web.system.service.SysMenuService;
+import com.houttuynia.web.system.vo.MenuVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,11 @@ import java.util.List;
 @Controller
 public class MenuController {
     @Resource
-    private SysMenuService menuService;
+    private SysMenuService sysMenuService;
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<SysMenuDO> menuList = menuService.list();
+        List<MenuVo> menuList = sysMenuService.getMenuList();
         model.addAttribute("menuList", menuList);
         return "pages/system/menu/list";
     }

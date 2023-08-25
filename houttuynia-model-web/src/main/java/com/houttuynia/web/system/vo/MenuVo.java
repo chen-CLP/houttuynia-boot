@@ -12,11 +12,15 @@ import java.util.List;
  */
 @Data
 public class MenuVo {
+    private String id;
     /**
      * 请求路径
      */
     private String menuUrl;
-
+    /**
+     * 名称
+     */
+    private String name;
     /**
      * 名称icon
      */
@@ -31,6 +35,14 @@ public class MenuVo {
      * 描述
      */
     private String description;
+    /**
+     * 是否为父亲节点
+     */
+    private Boolean isParent;
+    /**
+     * 父亲节点
+     */
+    private String parentId;
     /**
      * 孩子
      */

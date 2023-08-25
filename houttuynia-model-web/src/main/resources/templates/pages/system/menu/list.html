@@ -11,7 +11,7 @@
     </div>
     <script type="text/html" id="TPL-treeTable-demo">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="getChecked">获取选中数据</button>
+            <button class="layui-btn layui-btn-sm" lay-event="getChecked">新增</button>
         </div>
     </script>
     <script type="text/html" id="TPL-treeTable-demo-tools">
@@ -22,33 +22,23 @@
         </div>
     </script>
     <div th:include="include::footerJs"></div>
-    <script type="text/javascript">
+    <script th:inline="javascript">
+        let menuList = [[${menuList}]];
+        console.log(menuList);
         layui.use(function () {
             let treeTable = layui.treeTable;
             treeTable.render({
                 elem: '#ID-treeTable-demo',
-                url: '/static/json/demo.json', // 此处为静态模拟数据，实际使用时需换成真实接口
+                data: menuList, // 此处为静态模拟数据，实际使用时需换成真实接口
                 tree: {},
                 maxHeight: '501px',
                 toolbar: '#TPL-treeTable-demo',
-                cols: [
-                    [
-                        {type: 'checkbox', fixed: 'left'},
-                        {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'},
-                        {field: 'name', title: '用户名', width: 180, fixed: 'left'},
-                        {field: 'experience', title: '积分', width: 90, sort: true},
-                        {field: 'sex', title: '性别', width: 80, sort: true},
-                        {field: 'score', title: '评分', width: 80, sort: true},
-                        {field: 'city', title: '城市'},
-                        {
-                            fixed: "right",
-                            title: "操作",
-                            width: 181,
-                            align: "center",
-                            toolbar: "#TPL-treeTable-demo-tools"
-                        }
-                    ],
-                ],
+                cols: [[
+                    {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'},
+                    {field: 'name', title: '菜单名称', width: 180, fixed: 'left'},
+                    {field: 'menuUrl', title: '地址'},
+                    {fixed: "right", title: "操作", width: 181, align: "center", toolbar: "#TPL-treeTable-demo-tools"}
+                ],],
                 page: true
             });
         });

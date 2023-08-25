@@ -1,6 +1,8 @@
 package com.houttuynia.web.system.service.impl;
 
+import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.houttuynia.core.utils.ArrayUtils;
 import com.houttuynia.web.system.domain.SysMenuDO;
 import com.houttuynia.web.system.service.SysMenuService;
 import com.houttuynia.web.system.mapper.SysMenuMapper;
@@ -39,7 +41,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
             childList.forEach(item -> {
                 MenuVo tm = new MenuVo();
                 BeanUtils.copyProperties(item, tm);
+                tm.setName(tm.getMenuName());
+                tm.setParentId(menuId);
                 tm.setChildren(createMenList(item.getId(), groupList));
+                tm.setIsParent(ArrayUtils.isNotEmpty(tm.getChildren()));
                 res.add(tm);
             });
         }

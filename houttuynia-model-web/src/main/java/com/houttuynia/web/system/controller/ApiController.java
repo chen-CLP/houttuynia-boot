@@ -46,7 +46,6 @@ public class ApiController {
     private MyBatisXmlReload xmlReload;
 
     @GetMapping("list")
-
     public String list(Model model) {
         List<SysApiDO> apiDOList = apiService.list();
         model.addAttribute("list", apiDOList);
