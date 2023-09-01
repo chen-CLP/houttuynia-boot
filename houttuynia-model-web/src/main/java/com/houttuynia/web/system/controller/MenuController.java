@@ -29,4 +29,9 @@ public class MenuController {
         model.addAttribute("menuList", menuList);
         return "pages/system/menu/list";
     }
+
+    @GetMapping("/add")
+    public String add() {
+        return "pages/system/menu/add";
+    }
 }

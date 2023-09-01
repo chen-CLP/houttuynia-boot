@@ -1,0 +1,46 @@
+.add-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 50px;
+}
+
+.row-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-group-a {
+    margin-bottom: 1em;
+}
+
+.form-group-a .col-form-label {
+    font-size: 14px;
+    font-family: "Microsoft Himalaya";
+    font-weight: 700;
+    color: #0C0C0C;
+    height: 40px;
+}
+
+.form-input-single {
+    background-color: #eee;
+    user-select: none;
+}
+
+.form-group-a .form-input-text {
+    height: 40px;
+    opacity: 1;
+    border: 1px solid #e5e6e7;
+    border-radius: 1px;
+    color: inherit;
+    display: block;
+    padding: 6px 12px;
+    -webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 500px;
+    font-size: 14px;
+}

@@ -18,4 +18,9 @@
     <script src="/static/layui/layui.js"></script>
     <script src="/static/js/CommUtils.js"></script>
     <script src="/static/js/base.js"></script>
+    <script th:inline="javascript">
+        layui.use(function () {
+            const layer = layui.layer;
+        });
+    </script>
 </div>

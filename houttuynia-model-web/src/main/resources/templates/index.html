@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Houttuynia Boot</title>
-    <link rel="stylesheet" href="/static/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="/static/vendors/base/vendor.bundle.base.css">
-    <link rel="stylesheet" href="/static/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="shortcut icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <head th:include="include::header"></head>
     <style>
         .content-iframe {
             width: 100%;
@@ -68,23 +62,23 @@
                         <i class="mdi mdi-bell mx-0"></i>
                         <span class="count"></span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
-                         aria-labelledby="notificationDropdown">
-                        <p class="mb-0 font-weight-normal float-left dropdown-header">通知</p>
-                        <a class="dropdown-item">
-                            <div class="item-thumbnail">
-                                <div class="item-icon bg-success">
-                                    <i class="mdi mdi-information mx-0"></i>
-                                </div>
-                            </div>
-                            <div class="item-content">
-                                <h6 class="font-weight-normal">Application Error</h6>
-                                <p class="font-weight-light small-text mb-0 text-muted">
-                                    Just now
-                                </p>
-                            </div>
-                        </a>
-                    </div>
+                    <!--                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown"-->
+                    <!--                         aria-labelledby="notificationDropdown">-->
+                    <!--                        <p class="mb-0 font-weight-normal float-left dropdown-header">通知</p>-->
+                    <!--                        <a class="dropdown-item">-->
+                    <!--                            <div class="item-thumbnail">-->
+                    <!--                                <div class="item-icon bg-success">-->
+                    <!--                                    <i class="mdi mdi-information mx-0"></i>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="item-content">-->
+                    <!--                                <h6 class="font-weight-normal">Application Error</h6>-->
+                    <!--                                <p class="font-weight-light small-text mb-0 text-muted">-->
+                    <!--                                    Just now-->
+                    <!--                                </p>-->
+                    <!--                            </div>-->
+                    <!--                        </a>-->
+                    <!--                    </div>-->
                 </li>
                 <!--                个人中心模块-->
                 <li class="nav-item nav-profile dropdown">
@@ -140,19 +134,9 @@
         </div>
     </div>
 </div>
+<div th:include="include::footerJs"></div>
 <script src="/static/vendors/base/vendor.bundle.base.js"></script>
-<script src="/static/vendors/chart.js/Chart.min.js"></script>
-<script src="/static/vendors/datatables.net/jquery.dataTables.js"></script>
-<script src="/static/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-<script src="/static/js/off-canvas.js"></script>
-<script src="/static/js/hoverable-collapse.js"></script>
-<script src="/static/js/template.js"></script>
-<script src="/static/js/dashboard.js"></script>
-<script src="/static/js/data-table.js"></script>
-<script src="/static/js/jquery.dataTables.js"></script>
-<script src="/static/js/dataTables.bootstrap4.js"></script>
-<script src="/static/js/jquery.cookie.js" type="text/javascript"></script>
-<script type="text/javascript">
+<script th:inline="javascript">
     $(function () {
         //菜单点击处理
         $(".menu-item").click(function () {
