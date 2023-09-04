@@ -48,6 +48,12 @@
     font-size: 14px;
 }
 
+.col-sm-input {
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+}
+
 .form-row-float {
     float: left;
     width: 100%;
