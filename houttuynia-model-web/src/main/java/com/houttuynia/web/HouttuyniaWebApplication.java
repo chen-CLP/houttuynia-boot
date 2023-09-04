@@ -13,8 +13,14 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.env.Environment;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 @Slf4j
 @SpringBootApplication(scanBasePackages = "com.houttuynia.*")
 @EnableConfigurationProperties
@@ -26,11 +32,28 @@ public class HouttuyniaWebApplication implements ApplicationRunner {
     private Integer webPort;
 
     public static void main(String[] args) {
-        SpringApplication.run(HouttuyniaWebApplication.class, args);
+        SpringApplication app = new SpringApplication(HouttuyniaWebApplication.class);
+        ConfigurableApplicationContext context = app.run(args);
+        Environment env = context.getBean(Environment.class);
+        String serverPort = env.getProperty("local.server.port");
+        String localhostIP = getLocalIPAddress();
+        System.out.println("Server is running at " + localhostIP + ":" + serverPort);
+    }
+
+
+    private static String getLocalIPAddress() {
+        try {
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            return inetAddress.getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
      * 当启用dev配置时，如果配置端口被占用，会在8000～10000端口中随机选一个端口出来使用
+     *
      * @return
      */
     @Bean

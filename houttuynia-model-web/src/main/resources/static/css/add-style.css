@@ -11,10 +11,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .form-group-a {
+    /*flex: 1;*/
     margin-bottom: 1em;
     padding: 10px 50px;
 }
@@ -25,6 +26,7 @@
     font-weight: 700;
     color: #0C0C0C;
     height: 40px;
+    width: 140px;
 }
 
 .form-input-single {
@@ -44,4 +46,75 @@
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     width: 400px;
     font-size: 14px;
+}
+
+.form-row-float {
+    float: left;
+    width: 100%;
+}
+
+.sample-form-content {
+    padding: 20px 0px;
+}
+
+.layui-tab {
+    padding: 0 20px;
+    width: 100%;
+}
+
+.tab-item-butt {
+    padding: 0 0 10px 10px;
+}
+
+.layui-tab-title .layui-this {
+    color: #4d83ff !important;
+}
+
+.tab-item-content {
+    border: 1px solid #e5e6e7;
+}
+
+.tab-item-content-header .tab-row {
+    height: 25px;
+
+}
+
+.tab-item-content-val {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 430px;
+}
+
+.tab-item-content-val .tab-row {
+    height: 50px;
+}
+
+.tab-row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    border-top: 1px solid #e5e6e7;
+    padding: 5px 20px;
+}
+
+.tab-tr {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    margin: 0 7px 0px 7px;
+}
+
+.tab-item-content-val .tab-row:hover {
+    background: #e5e6e7;
+}
+
+.tab-tr span {
+    font-size: 14px;
+    font-family: "Microsoft Himalaya";
+    font-weight: 600;
+    color: #0C0C0C;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    font-feature-settings: "tnum";
+    padding-left: 10px
 }

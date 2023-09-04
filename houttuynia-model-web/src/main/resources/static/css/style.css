@@ -10593,9 +10593,9 @@ textarea.form-control {
 
 .form-row {
     display: flex;
-    flex-wrap: wrap;
-    margin-right: -5px;
-    margin-left: -5px;
+    flex-direction: row;
+    padding: 0 20px;
+    justify-content: flex-start;
 }
 
 .form-row > .col,

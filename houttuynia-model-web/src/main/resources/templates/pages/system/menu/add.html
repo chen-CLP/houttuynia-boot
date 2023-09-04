@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <head th:include="include::header"></head>
-    <link rel="stylesheet" href="/static/css/add-style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/add-style.css">
 </head>
 <body>
 <div class="container-scroller">
     <form class="sample-form">
-        <div class="card add-content">
-            <div class="row">
+        <div class="sample-form-content">
+            <div class="form-row">
                 <div class="form-group-a row-item">
                     <label class="col-form-label">父级目录：</label>
                     <div class="col-sm-input">
@@ -24,38 +24,229 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group-a row-item">
                     <label class="col-form-label">链接地址：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-input">
                         <input type="text" class="form-input-text " id="apiName" name="apiName"/>
                     </div>
                 </div>
                 <div class="form-group-a row-item">
                     <label class="col-form-label">打开方式：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-input">
                         <input type="text" class="form-input-text " id="apiName" name="apiName"/>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group-a row-item">
-                    <label class="col-form-label">图标：</label>
-                    <div class="col-sm-9">
+                    <label class="col-form-label">链接地址：</label>
+                    <div class="col-sm-input">
                         <input type="text" class="form-input-text " id="apiName" name="apiName"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="layui-tab " lay-filter="test-hash">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this" lay-id="11">列表配置</li>
+                        <li lay-id="22">查询配置</li>
+                        <li lay-id="33">按钮配置</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <div class="tab-item-butt">
+                                <button type="button" class="layui-btn layui-btn-normal">
+                                    <i class="layui-icon layui-icon-add-1"></i>
+                                    新增
+                                </button>
+                            </div>
+                            <div class="tab-item-content">
+                                <div class="tab-item-content-header">
+                                    <div class="tab-row">
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>排序</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>字段名称</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>字段备注</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-item-content-val">
+                                    <div class="tab-row">
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入显示位置">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入字段名称">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入字段备注">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-tab-item">
+                            <div class="tab-item-butt">
+                                <button type="button" class="layui-btn layui-btn-normal">
+                                    <i class="layui-icon layui-icon-add-1"></i>
+                                    新增
+                                </button>
+                            </div>
+                            <div class="tab-item-content">
+                                <div class="tab-item-content-header">
+                                    <div class="tab-row">
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>字段名称</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>字段备注</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>控件类型</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 100px">
+                                            <span>字典Code</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 100px">
+                                            <span>默认值</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-item-content-val">
+                                    <div class="tab-row">
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入字段名称">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入字段备注">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请选择控件类型">
+                                        </div>
+                                        <div class="tab-tr" style="width: 100px">
+                                            <input type="text" class="layui-input">
+                                        </div>
+                                        <div class="tab-tr" style="width: 100px">
+                                            <input type="text" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-tab-item">
+                            <div class="tab-item-butt">
+                                <button type="button" class="layui-btn layui-btn-normal">
+                                    <i class="layui-icon layui-icon-add-1"></i>
+                                    新增
+                                </button>
+                            </div>
+                            <div class="tab-item-content">
+                                <div class="tab-item-content-header">
+                                    <div class="tab-row">
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>按钮名称</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>URL</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>查询类型</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>参数字段</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>图标</span>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>提示信息</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-item-content-val">
+                                    <div class="tab-row">
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入按钮名称">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入URL">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请选择查询类型">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入参数字段">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" style="width: 80px" class="layui-input"
+                                                   placeholder="图标">
+                                            <i class="layui-icon layui-icon-search" style="cursor: pointer; margin: 13px 0 0 5px"></i>
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" class="layui-input" placeholder="请输入提示信息">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </form>
 </div>
 
 <div th:include="include::footerJs"></div>
 <script th:inline="javascript">
+    let formId = 0;
     $(function () {
     })
+    layui.use(function () {
+        let element = layui.element;
+
+        // hash 地址定位
+        let hashName = 'tabid'; // hash 名称
+        let layid = location.hash.replace(new RegExp('^#' + hashName + '='), ''); // 获取 lay-id 值
+
+        // 初始切换
+        element.tabChange('test-hash', layid);
+        // 切换事件
+        element.on('tab(test-hash)', function (obj) {
+            location.hash = hashName + '=' + this.getAttribute('lay-id');
+        });
+    });
+
+    function handleAddRow1(info) {
+        let $fieldContent = $(".field-content")[0];
+        let tmItem = document.createElement('div');
+        tmItem.innerHTML = `<form class="field-form" id="fieldForm${formId}" >
+                                                    <div class="field-item"><input name="fieldName"    value="${info ? info.fieldName : ''}"/></div>
+                                                    <div class="field-item"><input name="fieldDesc"    value="${info ? info.fieldDesc : ''}"/></div>
+                                                    <div class="field-item"><input name="fieldType"    value="${info ? info.fieldType : ''}"/></div>
+                                                    <div class="field-item"><input name="fieldDefault" value="${info ? info.fieldDefault : ''}"/></div>
+                                                    <div class="field-item">
+                                                        <input type="radio" name="isEmpty" th:value="0" ${info && info.isEmpty ? '' : 'checked'} > 否
+                                                        <input type="radio" name="isEmpty" th:value="1" ${info && info.isEmpty ? 'checked' : ''} > 是
+                                                    </div>
+                                                     <div class="field-item">
+                                                            <img class="img-del" src="/static/images/del.png"
+                                                                 onclick="handleRemoveRow(this)">
+                                                        </div>
+                                                    </form>`;
+        tmItem.classList.add('field-row');
+        $fieldContent.append(tmItem);
+        formId++;
+    }
 </script>
 </body>
 
