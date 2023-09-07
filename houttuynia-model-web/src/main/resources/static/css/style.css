@@ -22768,3 +22768,12 @@ dl li {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+.img-del {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.nav-item .fa {
+    margin: 0 5px;
+}

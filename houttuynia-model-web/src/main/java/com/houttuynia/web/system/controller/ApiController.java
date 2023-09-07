@@ -52,6 +52,13 @@ public class ApiController {
         return "pages/system/api/list";
     }
 
+    @GetMapping("model")
+    public String model(Model model) {
+        List<SysApiDO> apiDOList = apiService.list();
+        model.addAttribute("list", apiDOList);
+        return "pages/system/api/model";
+    }
+
     /**
      * 获取唯一的id
      *
@@ -66,7 +73,7 @@ public class ApiController {
         return Result.ok().data(apiBaseVo);
     }
 
-    @PostMapping("saveOrUpdate")
+    @PostMapping("save-or-update")
     @ResponseBody
     public Result saveOrUpdate(@RequestBody ApiForm form) {
         apiService.saveOrUpdate(form);

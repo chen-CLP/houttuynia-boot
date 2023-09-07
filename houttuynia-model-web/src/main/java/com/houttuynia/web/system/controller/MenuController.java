@@ -1,12 +1,13 @@
 package com.houttuynia.web.system.controller;
 
+import com.houttuynia.core.common.Result;
 import com.houttuynia.web.system.domain.SysMenuDO;
+import com.houttuynia.web.system.form.SysMenuForm;
 import com.houttuynia.web.system.service.SysMenuService;
 import com.houttuynia.web.system.vo.MenuVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,5 +34,12 @@ public class MenuController {
     @GetMapping("/add")
     public String add() {
         return "pages/system/menu/add";
+    }
+
+    @PostMapping("/save-or-update")
+    @ResponseBody
+    public Result saveOrUpdate(@RequestBody SysMenuForm sysMenuForm) {
+        sysMenuService.saveOrUpdate(sysMenuForm);
+        return Result.ok();
     }
 }

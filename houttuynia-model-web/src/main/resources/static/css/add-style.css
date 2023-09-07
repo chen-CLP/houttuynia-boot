@@ -26,7 +26,7 @@
     font-weight: 700;
     color: #0C0C0C;
     height: 40px;
-    width: 140px;
+    width: 100px;
 }
 
 .form-input-single {
@@ -88,7 +88,7 @@
 .tab-item-content-val {
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 430px;
+    max-height: 360px;
 }
 
 .tab-item-content-val .tab-row {
@@ -101,6 +101,10 @@
     width: 100%;
     border-top: 1px solid #e5e6e7;
     padding: 5px 20px;
+}
+
+.tab-row form {
+    display: flex;
 }
 
 .tab-tr {
@@ -123,4 +127,11 @@
     line-height: 1.5;
     font-feature-settings: "tnum";
     padding-left: 10px
+}
+
+.local-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0;
 }

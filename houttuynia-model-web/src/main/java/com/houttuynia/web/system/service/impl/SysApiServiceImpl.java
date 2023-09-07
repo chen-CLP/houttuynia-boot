@@ -37,7 +37,6 @@ public class SysApiServiceImpl extends ServiceImpl<SysApiMapper, SysApiDO>
         strSQL.replaceAll("\n", " ");
         strSQL.replaceAll("\r", " ");
         strSQL.replaceAll("\t", " ");
-
         String sqlXml = SqlUtils.createSQLXML(form.getId(), form.getSqlXml());
         if (Objects.isNull(apiDO)) {
             apiDO = new SysApiDO();

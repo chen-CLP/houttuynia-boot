@@ -13,14 +13,15 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">父级目录：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text form-input-single" id="" name="apiName" readonly/>
+                        <input type="text" class="form-input-text form-input-single" id="parentName" name="parentName"
+                               readonly/>
                         <input id="id" name="id" hidden/>
                     </div>
                 </div>
                 <div class=" form-group-a row-item">
                     <label class="col-form-label">菜单名称：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="apiName" name="apiName" />
+                        <input type="text" class="form-input-text " id="menuName" name="menuName"/>
                     </div>
                 </div>
             </div>
@@ -28,24 +29,35 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">链接地址：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="apiName" name="apiName" style="width: 90%"/>
-                        <i class="layui-icon layui-icon-search"
-                           style="cursor: pointer; margin: 13px 0 0 15px"></i>
+                        <input type="text" class="form-input-text " id="menUrl" name="menUrl" style="width: 65%"/>
+                        <i class="layui-icon layui-icon-search" style="cursor: pointer; margin: 13px 0 0 15px"
+                           onclick="openApiModel()"></i>
                     </div>
                 </div>
                 <div class="form-group-a row-item">
-                    <label class="col-form-label">打开方式：</label>
+                    <label class="col-form-label">顺序：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="apiName" name="apiName"/>
+                        <input type="number" class="form-input-text " id="menuNum" name="menuNum" style="width:65%"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group-a row-item">
-                    <label class="col-form-label">链接地址：</label>
+                    <label class="col-form-label">图标：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="apiName" name="apiName"/>
+                        <input type="text" class="form-input-text " id="menuIcon" name="menuIcon" style="width:65%"/>
+                        <i id="ico-btn" class="layui-icon layui-icon-search" onclick="openIconsHtml('menuIcon')"
+                           style="cursor: pointer; margin: 13px 0 0 15px"></i>
+                    </div>
+                </div>
+                <div class="form-group-a row-item">
+                    <label class="col-form-label">打开方式：</label>
+                    <div class="col-sm-input">
+                        <div class="layui-form">
+                            <input type="radio" name="openType" value="1" title="内部IFrame" checked>
+                            <input type="radio" name="openType" value="2" title="新窗口">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,7 +72,7 @@
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">
                             <div class="tab-item-butt">
-                                <button type="button" class="layui-btn layui-btn-normal">
+                                <button type="button" class="layui-btn layui-btn-normal" onclick="handleAddRow1()">
                                     <i class="layui-icon layui-icon-add-1"></i>
                                     新增
                                 </button>
@@ -79,25 +91,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-item-content-val">
-                                    <div class="tab-row">
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入显示位置">
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入字段名称">
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入字段备注">
-                                        </div>
-                                    </div>
+                                <div class="tab-item-content-val" id="content1">
                                 </div>
                             </div>
                         </div>
 
                         <div class="layui-tab-item">
                             <div class="tab-item-butt">
-                                <button type="button" class="layui-btn layui-btn-normal">
+                                <button type="button" class="layui-btn layui-btn-normal" onclick="handleAddRow2()">
                                     <i class="layui-icon layui-icon-add-1"></i>
                                     新增
                                 </button>
@@ -122,31 +123,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-item-content-val">
-                                    <div class="tab-row">
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入字段名称">
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入字段备注">
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请选择控件类型">
-                                        </div>
-                                        <div class="tab-tr" style="width: 100px">
-                                            <input type="text" class="layui-input">
-                                        </div>
-                                        <div class="tab-tr" style="width: 100px">
-                                            <input type="text" class="layui-input">
-                                        </div>
-                                    </div>
+                                <div class="tab-item-content-val" id="content2">
                                 </div>
                             </div>
                         </div>
 
                         <div class="layui-tab-item">
                             <div class="tab-item-butt">
-                                <button type="button" class="layui-btn layui-btn-normal">
+                                <button type="button" class="layui-btn layui-btn-normal" onclick="handleAddRow3()">
                                     <i class="layui-icon layui-icon-add-1"></i>
                                     新增
                                 </button>
@@ -172,33 +156,12 @@
                                         <div class="tab-tr" style="width: 140px">
                                             <span>提示信息</span>
                                         </div>
-
+                                        <div class="tab-tr" style="width: 140px">
+                                            <span>是否加入权限</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="tab-item-content-val">
-                                    <div class="tab-row">
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入按钮名称">
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入URL">
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请选择查询类型">
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入参数字段">
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" style="width: 80px" class="layui-input"
-                                                   placeholder="图标">
-                                            <i class="layui-icon layui-icon-search"
-                                               style="cursor: pointer; margin: 13px 0 0 5px"></i>
-                                        </div>
-                                        <div class="tab-tr" style="width: 140px">
-                                            <input type="text" class="layui-input" placeholder="请输入提示信息">
-                                        </div>
-                                    </div>
+                                <div class="tab-item-content-val" id="content3">
                                 </div>
                             </div>
                         </div>
@@ -206,52 +169,180 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
+        <div class="layui-input-block local-center">
+            <button type="button" class="layui-btn" onclick="handleSubmit()">立即提交</button>
+        </div>
     </form>
 </div>
 
 <div th:include="include::footerJs"></div>
 <script th:inline="javascript">
-    let formId = 0;
+    let formId1 = 0, formId2 = 0, formId3 = 0;
     $(function () {
-    })
-    layui.use(function () {
-        let element = layui.element;
-
-        // hash 地址定位
-        let hashName = 'tabid'; // hash 名称
-        let layid = location.hash.replace(new RegExp('^#' + hashName + '='), ''); // 获取 lay-id 值
-
-        // 初始切换
-        element.tabChange('test-hash', layid);
-        // 切换事件
-        element.on('tab(test-hash)', function (obj) {
-            location.hash = hashName + '=' + this.getAttribute('lay-id');
+        layui.use(function () {
+            let element = layui.element;
+            // hash 地址定位
+            let hashName = 'tabid'; // hash 名称
+            let layid = location.hash.replace(new RegExp('^#' + hashName + '='), ''); // 获取 lay-id 值
+            // 初始切换
+            element.tabChange('test-hash', layid);
+            // 切换事件
+            element.on('tab(test-hash)', function (obj) {
+                location.hash = hashName + '=' + this.getAttribute('lay-id');
+            });
         });
-    });
+        handleAddRow1();
+        handleAddRow2();
+        handleAddRow3();
+    })
 
-    function handleAddRow1(info) {
-        let $fieldContent = $(".field-content")[0];
-        let tmItem = document.createElement('div');
-        tmItem.innerHTML = `<form class="field-form" id="fieldForm${formId}" >
-                                                    <div class="field-item"><input name="fieldName"    value="${info ? info.fieldName : ''}"/></div>
-                                                    <div class="field-item"><input name="fieldDesc"    value="${info ? info.fieldDesc : ''}"/></div>
-                                                    <div class="field-item"><input name="fieldType"    value="${info ? info.fieldType : ''}"/></div>
-                                                    <div class="field-item"><input name="fieldDefault" value="${info ? info.fieldDefault : ''}"/></div>
-                                                    <div class="field-item">
-                                                        <input type="radio" name="isEmpty" th:value="0" ${info && info.isEmpty ? '' : 'checked'} > 否
-                                                        <input type="radio" name="isEmpty" th:value="1" ${info && info.isEmpty ? 'checked' : ''} > 是
-                                                    </div>
-                                                     <div class="field-item">
-                                                            <img class="img-del" src="/static/images/del.png"
-                                                                 onclick="handleRemoveRow(this)">
-                                                        </div>
-                                                    </form>`;
-        tmItem.classList.add('field-row');
-        $fieldContent.append(tmItem);
-        formId++;
+    function getFormData(id, num) {
+        let res = [];
+        for (let i = 0; i < num; ++i) {
+            res.push(serToJson(new FormData(document.getElementById(`${id}${i}`))));
+        }
+        return res;
     }
+
+    function handleSubmit() {
+        let fieldConf = getFormData("fieldForm", formId1);
+        let queryConf = getFormData("queryForm", formId2);
+        let btnCond = getFormData("btnForm", formId3);
+        console.log({fieldConf, queryConf, btnCond});
+    }
+
+    function openApiModel() {
+        layer.open({
+            type: 2,
+            title: '图标列表',
+            content: [`/system/api/model`, 'yes'],
+            area: ['980px', '70%'],
+        });
+    }
+
+    function callBckCheckApi(data) {
+        $("#menUrl").val(data.apiUrl);
+    }
+
+    /**
+     * 处理新增行
+     * @param info
+     */
+    function handleAddRow1(info) {
+        let $fieldContent = $("#content1");
+        let tmItem = document.createElement('div');
+        tmItem.innerHTML = `<form id="fieldForm${formId1}">
+                                            <div class="tab-tr" style="width: 140px">
+                                                <input type="number" name="fieldLocal" class="layui-input" placeholder="请输入显示位置">
+                                            </div>
+                                            <div class="tab-tr" style="width: 140px">
+                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段名称">
+                                            </div>
+                                            <div class="tab-tr" style="width: 140px">
+                                                <input type="text"  name="fieldDesc" class="layui-input" placeholder="请输入字段备注">
+                                            </div>
+                                            <div class="tab-tr" style="width: 100px">
+                                             <i style="line-height: 38px;font-size: 24px;" class="layui-icon layui-icon-delete" onclick="handleRemoveRow(this,'#content1')"></i>
+                                            </div>
+                             </form>`;
+        tmItem.classList.add('tab-row');
+        $fieldContent.append(tmItem);
+        formId1++;
+    }
+
+    function handleAddRow2(info) {
+        let $fieldContent = $("#content2");
+        let tmItem = document.createElement('div');
+        tmItem.innerHTML = ` <form id="queryForm${formId2}">
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段名称">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" name="queryDesc" class="layui-input" placeholder="请输入查询描述">
+                                        </div>
+                                        <div class="tab-tr" style="width: 140px">
+                                            <input type="text" name="queryInputType" class="layui-input" placeholder="请选择控件类型">
+                                        </div>
+                                        <div class="tab-tr" style="width: 100px">
+                                            <input type="text" name="dictCode"  class="layui-input">
+                                        </div>
+                                        <div class="tab-tr" style="width: 100px">
+                                            <input type="text" name="defaultVal" class="layui-input">
+                                        </div>
+                                         <div class="tab-tr" style="width: 100px">
+                                             <i style="line-height: 38px;font-size: 24px;" class="layui-icon layui-icon-delete" onclick="handleRemoveRow(this,'#content2')"></i>
+                                        </div>
+                              </form>`;
+        tmItem.classList.add('tab-row');
+        $fieldContent.append(tmItem);
+        formId2++;
+    }
+
+    function handleAddRow3(info) {
+        layui.use(function () {
+            let $fieldContent = $("#content3")[0];
+            let tmItem = document.createElement('div');
+            tmItem.innerHTML = `<form id="btnForm${formId3}">
+                                            <div class="tab-tr" style="width: 140px">
+                                                <input type="text" name="btnName" class="layui-input" placeholder="请输入按钮名称">
+                                            </div>
+
+                                            <div class="tab-tr" style="width: 140px">
+                                                <input type="text" name="btnUrl" class="layui-input" placeholder="请输入URL">
+                                            </div>
+
+                                            <div class="tab-tr" style="width: 140px">
+                                             <select class="layui-input" lay-filter="demo-select-filter" name="queryType">
+                                               <option value="AAA">选项 A</option>
+                                               <option value="BBB">选项 B</option>
+                                               <option value="CCC">选项 C</option>
+                                              </select>
+                                            </div>
+                                            <div class="tab-tr" style="width: 140px">
+                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入参数字段">
+                                            </div>
+
+                                            <div class="tab-tr" style="width: 140px">
+                                                <input type="text" name="btnIcon" style="width: 110px" class="layui-input" id="btn${formId3}"
+                                                       placeholder="图标">
+                                                <i id="ico-btn" class="layui-icon layui-icon-search" onclick="openIconsHtml('btn${formId3}')"
+                                                   style="cursor: pointer; margin: 13px 0 0 5px"></i>
+                                            </div>
+                                            <div class="tab-tr" style="width: 140px">
+                                                <input type="text" name="btnHint" class="layui-input" placeholder="请输入提示信息">
+                                            </div>
+                                            <div class="tab-tr" style="width: 140px">
+                                                <div class="layui-form" style="margin-left: 5px">
+                                                    <input type="radio" name="btnAuth" th:value="0" title="是" checked>
+                                                    <input type="radio" name="btnAuth" th:value="1" title="否">
+                                                </div>
+                                            </div>
+                                            <div class="tab-tr" style="width: 100px">
+                                             <i style="line-height: 38px;font-size: 24px;" class="layui-icon layui-icon-delete" onclick="handleRemoveRow(this,'#content3')"></i>
+                                            </div>
+                                        </form>`;
+            tmItem.classList.add('tab-row');
+            $fieldContent.append(tmItem);
+            formId3++;
+            layui.form.render('radio');
+        });
+    }
+
+    function handleRemoveRow(item, id) {
+        let tm = item.parentElement.parentElement.parentElement;
+        let $fieldContent = $(id)[0];
+        $fieldContent.removeChild(tm);
+        if (id === '#content1') {
+            formId1--;
+        } else if (id === '#content2') {
+            formId2--;
+        } else if (id === '#content3') {
+            formId3--;
+        }
+    }
+
 </script>
 </body>
 

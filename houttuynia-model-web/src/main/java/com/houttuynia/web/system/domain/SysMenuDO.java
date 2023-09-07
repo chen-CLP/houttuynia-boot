@@ -3,9 +3,10 @@ package com.houttuynia.web.system.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 菜单表
@@ -15,7 +16,7 @@ import lombok.Data;
 @Data
 public class SysMenuDO implements Serializable {
     /**
-     *
+     * 
      */
     @TableId
     private String id;
@@ -26,7 +27,7 @@ public class SysMenuDO implements Serializable {
     private String parentId;
 
     /**
-     * 请求路径
+     * 链接地址
      */
     private String menuUrl;
 
@@ -36,9 +37,34 @@ public class SysMenuDO implements Serializable {
     private String menuName;
 
     /**
+     * 顺序
+     */
+    private Integer menuNum;
+
+    /**
      * 菜单图标
      */
     private String menuIcon;
+
+    /**
+     * 打开方式
+     */
+    private Integer openType;
+
+    /**
+     * 按钮配置
+     */
+    private String buttonConf;
+
+    /**
+     * 查询配置
+     */
+    private String queryConf;
+
+    /**
+     * 菜单显示字段配置
+     */
+    private String fieldConf;
 
     /**
      * 描述
@@ -46,22 +72,22 @@ public class SysMenuDO implements Serializable {
     private String description;
 
     /**
-     *
+     * 
      */
     private Date createTime;
 
     /**
-     *
+     * 
      */
     private Date updateTime;
 
     /**
-     *
+     * 
      */
     private String createBy;
 
     /**
-     *
+     * 
      */
     private String updateBy;
 
