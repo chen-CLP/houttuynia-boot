@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container-scroller">
-    <form class="sample-form">
+    <form class="sample-form" id="parentForm">
         <div class="sample-form-content">
             <div class="form-row">
                 <div class="form-group-a row-item">
@@ -179,6 +179,7 @@
 
 <div th:include="include::footerJs"></div>
 <script th:inline="javascript">
+
     let formId1 = 0, formId2 = 0, formId3 = 0;
     $(function () {
         layui.use(function () {
@@ -210,7 +211,7 @@
         let fieldConf = getFormData("fieldForm", formId1);
         let queryConf = getFormData("queryForm", formId2);
         let btnCond = getFormData("btnForm", formId3);
-        console.log({fieldConf, queryConf, btnCond});
+        let parentForm = serToJson(new FormData(document.getElementById(`parentForm`)));
     }
 
     function openApiModel() {

@@ -24,6 +24,10 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+    background-size: 100%;
+}
+
 .icon-logg:before {
     content: "\e915";
 }
@@ -100,6 +104,6 @@
     content: "\e927";
 }
 
-.icon-code:before{
+.icon-code:before {
     content: "\f64f";
 }
