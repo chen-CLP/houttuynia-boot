@@ -120,7 +120,7 @@
                             <li class="nav-item ">
                                 <a class="nav-link menu-item" id="menuItem"
                                    href="#"
-                                   th:onclick="handleMenuItemClick([[${childItem.menuUrl}]] ,[[${childItem.menuType}]])"
+                                   th:onclick="handleMenuItemClick([[${childItem.menuUrl}]] ,[[${childItem.menuType}]],[[${childItem.id}]])"
                                    th:text="${childItem.menuName}"></a>
                             </li>
                         </ul>
@@ -158,10 +158,16 @@
      * @param params
      */
     function handleMenuItemClick(url, type) {
-        let $iframe = $("#contentFrame");
-        $iframe.attr("src", url);
-        $('.nav-item').removeClass('active');
-        this.parentElement.classList.add('active');
+        if (type === "base") {
+            let $iframe = $("#contentFrame");
+            $iframe.attr("src", url);
+            $('.nav-item').removeClass('active');
+            this.parentElement.classList.add('active');
+        } else {
+
+        }
+
+
     }
 
 </script>

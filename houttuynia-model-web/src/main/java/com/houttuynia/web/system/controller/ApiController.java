@@ -42,9 +42,6 @@ public class ApiController {
      */
     private final static String BASE_URL_PRE = "system/api/xml/";
 
-    @Resource
-    private MyBatisXmlReload xmlReload;
-
     @GetMapping("list")
     public String list(Model model) {
         List<SysApiDO> apiDOList = apiService.list();
