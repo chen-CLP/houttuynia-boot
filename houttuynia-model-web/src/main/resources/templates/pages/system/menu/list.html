@@ -7,7 +7,7 @@
 <body>
 <div class="container-scroller">
     <div class="card">
-        <table class="layui-hide" id="ID-treeTable-demo"></table>
+        <table class="layui-hide" id="ID-treeTable-demo" lay-filter="data-table"></table>
     </div>
     <script type="text/html" id="TPL-treeTable-demo">
         <div class="layui-btn-container">
@@ -18,8 +18,12 @@
     </script>
     <script type="text/html" id="TPL-treeTable-demo-tools">
         <div class="layui-btn-container">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">编辑</a>
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="addChild">新增</a>
+            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delete"
+                    onclick="handleDel()">
+                <i class="layui-icon">&#xe640;</i>
+            </button>
         </div>
     </script>
     <div th:include="include::footerJs"></div>
@@ -38,11 +42,52 @@
                     {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'},
                     {field: 'name', title: '菜单名称', width: 180, fixed: 'left'},
                     {field: 'menuUrl', title: '地址'},
+                    {field: 'menuUrl', title: '图标'},
+                    {field: 'menuUrl', title: '顺序'},
+                    {field: 'menuUrl', title: '打开方式'},
                     {fixed: "right", title: "操作", width: 181, align: "center", toolbar: "#TPL-treeTable-demo-tools"}
                 ],],
                 page: true
             });
+            treeTable.on('tool(data-table)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                let data = obj.data;
+                switch (obj.event) {
+                    case "edit": {
+                        handleEdit(data);
+                        break;
+                    }
+                    case "addChild": {
+                        handleAdd(data);
+                        break;
+                    }
+                    case "delete": {
+                        handleDel(data);
+                        break
+                    }
+                    default:
+                        break;
+                }
+            });
+
         });
+
+        function handleDel(params) {
+
+        }
+
+        function handleEdit(params) {
+            console.log(params);
+            _parent.layer.open({
+                type: 2, // page 层类型
+                area: ['1300px', '900px'],
+                title: '新增菜单',
+                shade: 0.6, // 遮罩透明度
+                shadeClose: true, // 点击遮罩区域，关闭弹层
+                maxmin: true, // 允许全屏最小化
+                anim: 0, // 0-6 的动画形式，-1 不开启
+                content: [`/system/menu/edit/${params.id}`, 'yes']
+            });
+        }
 
         function handleAdd() {
             _parent.layer.open({

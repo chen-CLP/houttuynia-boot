@@ -1,9 +1,11 @@
 package com.houttuynia.web.system.service.impl;
 
 import cn.hutool.core.util.ArrayUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.houttuynia.core.utils.ArrayUtils;
 import com.houttuynia.web.system.domain.SysMenuDO;
+import com.houttuynia.web.system.dto.MenuDetailsDto;
 import com.houttuynia.web.system.form.SysMenuForm;
 import com.houttuynia.web.system.service.SysMenuService;
 import com.houttuynia.web.system.mapper.SysMenuMapper;
@@ -12,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.ListUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +30,7 @@ import java.util.stream.Collectors;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
         implements SysMenuService {
     private static final String BASE_MENU_ID = "0";
-
+    @Resource
     private SysMenuMapper sysMenuMapper;
 
     @Override
@@ -40,6 +43,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
     @Override
     public void saveOrUpdate(SysMenuForm sysMenuForm) {
         SysMenuDO menuDO = this.getById(sysMenuForm.getId());
+
         if (Objects.isNull(menuDO)) {
             menuDO = new SysMenuDO();
             BeanUtils.copyProperties(sysMenuForm, menuDO);
@@ -67,7 +71,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
         return res;
     }
 
-
+    @Override
+    public MenuDetailsDto getDtoById(String id) {
+        return sysMenuMapper.getDtoById(id);
+    }
 }
 
 

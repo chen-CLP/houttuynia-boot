@@ -1,38 +1,32 @@
-package com.houttuynia.web.system.form;
+package com.houttuynia.web.system.dto;
 
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import org.springframework.util.StringUtils;
 
-import java.util.Objects;
+import java.util.Date;
 
 /**
- * SysMenuForm
+ * MenuDetailsVo
  *
  * @author clp
- * @date 2023-9-5 14:04
+ * @date 2023-10-7 15:55
  */
 @Data
-public class SysMenuForm {
+public class MenuDetailsDto {
+    /**
+     * id
+     */
+    @TableId
     private String id;
-
-    public String getParentId() {
-        if (StringUtils.hasLength(parentId)) {
-            return parentId;
-        } else {
-            return "0";
-        }
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
 
     /**
      * 父ID
      */
     private String parentId;
+    /**
+     * 父名称
+     */
+    private String parentName;
 
     /**
      * 链接地址
@@ -79,4 +73,28 @@ public class SysMenuForm {
      */
     private String description;
 
+    /**
+     *
+     */
+    private Date createTime;
+
+    /**
+     *
+     */
+    private Date updateTime;
+
+    /**
+     *
+     */
+    private String createBy;
+
+    /**
+     *
+     */
+    private String updateBy;
+
+    /**
+     * 逻辑删除标识
+     */
+    private Integer delFlag;
 }

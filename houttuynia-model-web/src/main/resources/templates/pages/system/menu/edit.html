@@ -13,15 +13,14 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">父级目录：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text form-input-single" id="parentName" name="parentName"
-                               readonly/>
-                        <input id="id" name="id" hidden/>
+                        <input type="text" class="form-input-text form-input-single" id="parentName" name="parentName" th:value="${menuDetails.parentName}" readonly/>
+                        <input id="parentId" name="parentId" th:value="${menuDetails.parentId}" hidden/>
                     </div>
                 </div>
                 <div class=" form-group-a row-item">
                     <label class="col-form-label">菜单名称：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="menuName" name="menuName"/>
+                        <input type="text" class="form-input-text " id="menuName" name="menuName"  th:value="${menuDetails.menuName}"/>
                     </div>
                 </div>
             </div>
@@ -29,7 +28,7 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">链接地址：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="menuUrl" name="menuUrl" style="width: 65%"/>
+                        <input type="text" class="form-input-text " id="menuUrl" name="menuUrl" th:value="${menuDetails.menuUrl}" style="width: 65%"/>
                         <i class="layui-icon layui-icon-search" style="cursor: pointer; margin: 13px 0 0 15px"
                            onclick="openApiModel()"></i>
                     </div>
@@ -37,7 +36,7 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">顺序：</label>
                     <div class="col-sm-input">
-                        <input type="number" class="form-input-text " id="menuNum" name="menuNum" style="width:65%"/>
+                        <input type="number" class="form-input-text " id="menuNum" name="menuNum" th:value="${menuDetails.menuNum}" style="width:65%"/>
                     </div>
                 </div>
             </div>
@@ -46,7 +45,7 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">图标：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="menuIcon" name="menuIcon" style="width:65%"/>
+                        <input type="text" class="form-input-text " id="menuIcon" name="menuIcon" th:value="${menuDetails.menuIcon}" style="width:65%"/>
                         <i id="ico-btn" class="layui-icon layui-icon-search" onclick="openIconsHtml('menuIcon')"
                            style="cursor: pointer; margin: 13px 0 0 15px"></i>
                     </div>
@@ -55,8 +54,8 @@
                     <label class="col-form-label">打开方式：</label>
                     <div class="col-sm-input">
                         <div class="layui-form">
-                            <input type="radio" name="openType" value="1" title="内部IFrame" checked>
-                            <input type="radio" name="openType" value="2" title="新窗口">
+                            <input type="radio" name="openType" value="1" title="内部IFrame" th:checked="${menuDetails.openType eq '1'}">
+                            <input type="radio" name="openType" value="2" title="新窗口"  th:checked="${menuDetails.openType eq '2'}">
                         </div>
                     </div>
                 </div>
@@ -182,7 +181,7 @@
 
 <div th:include="include::footerJs"></div>
 <script th:inline="javascript">
-
+    const menuDetails = [[${menuDetails}]];
     let formId1 = 0, formId2 = 0, formId3 = 0;
     $(function () {
         layui.use(function () {

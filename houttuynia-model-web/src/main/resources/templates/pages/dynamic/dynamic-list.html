@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:include="include::header"></head>
+</head>
+<body>
+<div class="container-scroller">
+    <div class="card">
+        <table class="layui-hide" id="ID-treeTable-demo"></table>
+    </div>
+</div>
+<div th:include="include::footerJs"></div>
+<script th:inline="javascript">
+    let pageInfo = [[${pageInfo}]];
+    let dataUrl = pageInfo.menuUrl;
+    layui.use(function () {
+        let treeTable = layui.treeTable;
+        treeTable.render({
+            elem: '#ID-treeTable-demo',
+            data: menuList, // 此处为静态模拟数据，实际使用时需换成真实接口
+            tree: {},
+            maxHeight: '501px',
+            toolbar: '#TPL-treeTable-demo',
+            cols: [[
+                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'},
+                {field: 'name', title: '菜单名称', width: 180, fixed: 'left'},
+                {field: 'menuUrl', title: '地址'},
+                {field: 'menuUrl', title: '图标'},
+                {field: 'menuUrl', title: '顺序'},
+                {field: 'menuUrl', title: '打开方式'},
+                {fixed: "right", title: "操作", width: 181, align: "center", toolbar: "#TPL-treeTable-demo-tools"}
+            ],],
+            page: true
+        });
+    });
+
+</script>
+</body>
+</html>
