@@ -18,6 +18,10 @@ public class MenuVo {
      */
     private String menuUrl;
     /**
+     * 菜单类型
+     */
+    private String menuType;
+    /**
      * 名称
      */
     private String name;

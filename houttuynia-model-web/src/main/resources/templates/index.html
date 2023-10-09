@@ -120,7 +120,7 @@
                             <li class="nav-item ">
                                 <a class="nav-link menu-item" id="menuItem"
                                    href="#"
-                                   th:onclick="|handleMenuItemClick(${childItem})|"
+                                   th:onclick="handleMenuItemClick([[${childItem.menuUrl}]] ,[[${childItem.menuType}]])"
                                    th:text="${childItem.menuName}"></a>
                             </li>
                         </ul>
@@ -157,20 +157,13 @@
      * 菜单点击事件
      * @param params
      */
-    function handleMenuItemClick(params) {
-        console.log(params);
+    function handleMenuItemClick(url, type) {
+        let $iframe = $("#contentFrame");
+        $iframe.attr("src", url);
+        $('.nav-item').removeClass('active');
+        this.parentElement.classList.add('active');
     }
 
-    // $(function () {
-    //     //菜单点击处理
-    //     $(".menu-item").click(function () {
-    //         let $iframe = $("#contentFrame");
-    //         $iframe.attr("src", this.href);
-    //         $('.nav-item').removeClass('active');
-    //         this.parentElement.classList.add('active');
-    //         return false;
-    //     });
-    // })
 </script>
 </body>
 
