@@ -7,34 +7,62 @@
 <body>
 <div class="container-scroller">
     <div class="card">
-        <table class="layui-hide" id="ID-treeTable-demo"></table>
+        <table class="layui-hide" id="id-data-table" lay-filter="data-table"></table>
     </div>
+    <script type="text/html" id="TPL-treeTable-demo-tools">
+        <div class="layui-btn-container">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="addChild">新增</a>
+            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delete"
+                    onclick="handleDel()">
+                <i class="layui-icon">&#xe640;</i>
+            </button>
+        </div>
+    </script>
 </div>
 <div th:include="include::footerJs"></div>
+<script>
+    function getCols(fieldConf) {
+        let tmConf = JSON.parse(fieldConf);
+        let cols = [];
+        if (tmConf && tmConf instanceof Array && tmConf.length > 0) {
+            tmConf.forEach(item => {
+                cols.push(
+                    {field: item.fieldName, title: item.fieldLabel,},
+                )
+            })
+        }
+        return cols;
+    }
+</script>
 <script th:inline="javascript">
-    let pageInfo = [[${pageInfo}]];
-    let dataUrl = pageInfo.menuUrl;
+    let menuInfo = [[${menuInfo}]];
+    let dataUrl = menuInfo.menuUrl;
+    let cols = getCols(menuInfo.fieldConf);
     layui.use(function () {
         let treeTable = layui.treeTable;
         treeTable.render({
-            elem: '#ID-treeTable-demo',
-            data: menuList, // 此处为静态模拟数据，实际使用时需换成真实接口
+            elem: '#id-data-table',
+            url: "/" + dataUrl, // 此处为静态模拟数据，实际使用时需换成真实接口
+            parseData: function (res) { //res 即为原始返回的数据
+                let code = 0;
+                if (res.code !== 200) {
+                    code = -1;
+                }
+                return {
+                    "code": code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": 1, //解析数据长度
+                    "data": res.data //解析数据列表
+                };
+            },
             tree: {},
             maxHeight: '501px',
             toolbar: '#TPL-treeTable-demo',
-            cols: [[
-                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'},
-                {field: 'name', title: '菜单名称', width: 180, fixed: 'left'},
-                {field: 'menuUrl', title: '地址'},
-                {field: 'menuUrl', title: '图标'},
-                {field: 'menuUrl', title: '顺序'},
-                {field: 'menuUrl', title: '打开方式'},
-                {fixed: "right", title: "操作", width: 181, align: "center", toolbar: "#TPL-treeTable-demo-tools"}
-            ],],
+            cols: [cols],
             page: true
         });
     });
-
 </script>
 </body>
 </html>

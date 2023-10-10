@@ -16,8 +16,6 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,user_name,user_sex,
-        user_password,create_by,create_time,
-        update_by,update_time
+        select * from sys_user
     </sql>
 </mapper>
