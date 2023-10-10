@@ -12,3 +12,14 @@ spring:
     static-path-pattern: /static/**
   resources:
     static-locations: [classpath:/static/]
+# application.yml
+
+pagehelper:
+  # 分页插件会自动检测连接的数据库，自动选择合适的分页实现（可以不设置）
+  helper-dialect: mysql
+  # 对RowBounds作为分页参数时有效，一般不用它，默认值为false
+  offset-as-page-num: false
+  # 对RowBounds进行count查询，一般不用它，默认值为false
+  row-bounds-with-count: false
+  # 为true则pageNum参数小于1时设为第一页，大于总页数时设为最后一页
+  reasonable: true

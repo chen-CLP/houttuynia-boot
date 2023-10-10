@@ -41,6 +41,7 @@
     let cols = getCols(menuInfo.fieldConf);
     layui.use(function () {
         let treeTable = layui.treeTable;
+        console.log(dataUrl);
         treeTable.render({
             elem: '#id-data-table',
             url: "/" + dataUrl, // 此处为静态模拟数据，实际使用时需换成真实接口

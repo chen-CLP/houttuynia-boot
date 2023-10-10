@@ -3,6 +3,7 @@ package com.houttuynia.web.system.controller;
 import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
+import com.github.pagehelper.PageHelper;
 import com.houttuynia.core.common.Result;
 import com.houttuynia.core.utils.ArrayUtils;
 import com.houttuynia.core.utils.SqlUtils;
@@ -87,6 +88,7 @@ public class ApiController {
     @ResponseBody
     public Result get(@PathVariable String id, @RequestParam Map<String, Object> param) {
         String nameSpace = SqlUtils.getSelectPath(id);
+        PageHelper.startPage(1, 10);
         return Result.ok().data(sqlSession.selectList(nameSpace, param));
     }
 
