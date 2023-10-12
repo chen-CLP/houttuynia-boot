@@ -22,6 +22,11 @@
 </div>
 <div th:include="include::footerJs"></div>
 <script>
+    /**
+     * 获取列表配置功能
+     * @param fieldConf
+     * @returns {*[]}
+     */
     function getCols(fieldConf) {
         let tmConf = JSON.parse(fieldConf);
         let cols = [];
@@ -41,7 +46,6 @@
     let cols = getCols(menuInfo.fieldConf);
     layui.use(function () {
         let treeTable = layui.treeTable;
-        console.log(dataUrl);
         treeTable.render({
             elem: '#id-data-table',
             url: "/" + dataUrl, // 此处为静态模拟数据，实际使用时需换成真实接口
@@ -50,11 +54,12 @@
                 if (res.code !== 200) {
                     code = -1;
                 }
+                let pageInfo = res.data;
                 return {
                     "code": code, //解析接口状态
                     "msg": res.message, //解析提示文本
-                    "count": 1, //解析数据长度
-                    "data": res.data //解析数据列表
+                    "count": pageInfo.total, //解析数据长度
+                    "data": pageInfo.list //解析数据列表
                 };
             },
             tree: {},

@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("dynamic")
-public class DynamicController {
+public class SysDynamicController {
 
     @Resource
     private SysMenuService sysMenuService;

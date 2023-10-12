@@ -29,9 +29,11 @@
     <div th:include="include::footerJs"></div>
     <script th:inline="javascript">
         let menuList = [[${menuList}]];
+        console.log(menuList)
         const _parent = window.parent;
         layui.use(function () {
-            let treeTable = layui.treeTable;
+            const treeTable = layui.treeTable;
+
             treeTable.render({
                 elem: '#ID-treeTable-demo',
                 data: menuList, // 此处为静态模拟数据，实际使用时需换成真实接口
@@ -42,9 +44,13 @@
                     {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'},
                     {field: 'name', title: '菜单名称', width: 180, fixed: 'left'},
                     {field: 'menuUrl', title: '地址'},
-                    {field: 'menuUrl', title: '图标'},
-                    {field: 'menuUrl', title: '顺序'},
-                    {field: 'menuUrl', title: '打开方式'},
+                    {field: 'menuIcon', title: '图标'},
+                    {field: 'menuNum', title: '顺序'},
+                    {
+                        field: 'openType', title: '打开方式', templet: function (a) {
+                            return a.openType === 1 ? "内部窗口" : "外部窗口";
+                        }
+                    },
                     {fixed: "right", title: "操作", width: 181, align: "center", toolbar: "#TPL-treeTable-demo-tools"}
                 ],],
                 page: true
@@ -62,22 +68,38 @@
                         break;
                     }
                     case "delete": {
-                        handleDel(data);
+                        layer.confirm('真的删除菜单：' + data.name + '?', function (index) {
+                            $.ajax({
+                                type: "DELETE",
+                                url: "/system/menu/delete-batch",
+                                dataType: 'json',
+                                contentType: "application/json",
+                                data: JSON.stringify([data.id]),
+                                success: function (res) {
+                                    if (res.code === 200) {
+                                        layer.msg(`删除成功！`);
+                                        obj.del(); // 删除对应行（tr）的DOM结构
+                                    } else {
+                                        layer.msg(`删除失败：${res}`);
+                                    }
+                                },
+                                error: function (res) {
+                                    layer.msg(`删除失败：${res}`);
+                                },
+                                finally: function () {
+                                    layer.close(index);
+                                }
+                            })
+                        });
                         break
                     }
                     default:
                         break;
                 }
             });
-
         });
 
-        function handleDel(params) {
-
-        }
-
         function handleEdit(params) {
-            console.log(params);
             _parent.layer.open({
                 type: 2, // page 层类型
                 area: ['1300px', '900px'],

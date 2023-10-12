@@ -31,10 +31,19 @@ public class MenuVo {
     private String menuName;
 
     /**
+     * 顺序
+     */
+    private Integer menuNum;
+
+    /**
      * 菜单图标
      */
     private String menuIcon;
 
+    /**
+     * 打开方式
+     */
+    private Integer openType;
     /**
      * 描述
      */

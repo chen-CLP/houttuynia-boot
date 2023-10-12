@@ -47,7 +47,10 @@ public class MenuDetailsDto {
      * 菜单图标
      */
     private String menuIcon;
-
+    /**
+     * 菜单类型
+     */
+    private String menuType;
     /**
      * 打开方式
      */
@@ -72,29 +75,4 @@ public class MenuDetailsDto {
      * 描述
      */
     private String description;
-
-    /**
-     *
-     */
-    private Date createTime;
-
-    /**
-     *
-     */
-    private Date updateTime;
-
-    /**
-     *
-     */
-    private String createBy;
-
-    /**
-     *
-     */
-    private String updateBy;
-
-    /**
-     * 逻辑删除标识
-     */
-    private Integer delFlag;
 }

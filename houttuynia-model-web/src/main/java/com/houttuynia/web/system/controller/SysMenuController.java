@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RequestMapping("/system/menu")
 @Controller
-public class MenuController {
+public class SysMenuController {
     @Resource
     private SysMenuService sysMenuService;
 
@@ -46,8 +46,8 @@ public class MenuController {
 
     @DeleteMapping("/delete-batch")
     @ResponseBody
-    public Result deleteBatch(String[] ids) {
-        sysMenuService.removeByIds(Arrays.asList(ids));
+    public Result deleteBatch(@RequestBody List<String> ids) {
+        sysMenuService.removeByIds(ids);
         return Result.ok();
     }
 

@@ -111,13 +111,13 @@
                 <li class="nav-item ">
                     <a class="nav-link" data-toggle="collapse" th:href="${'#menu'+menuSta.index}" aria-expanded="false"
                        aria-controls="ui-basic">
-                        <i class=" fa fa-paper-plane"></i>
+                        <i th:class="${menuItem.menuIcon}"></i>
                         <span class="menu-title" th:text="${menuItem.menuName}"></span>
                         <i class="menu-arrow"></i>
                     </a>
                     <div class="collapse" th:id="${'menu'+menuSta.index}">
                         <ul class="nav flex-column sub-menu" th:each="childItem,childSta:${menuItem.children}">
-                            <li class="nav-item ">
+                            <li class="nav-item active">
                                 <a class="nav-link menu-item" id="menuItem"
                                    href="#"
                                    th:onclick="handleMenuItemClick(this,[[${childItem.menuUrl}]] ,[[${childItem.menuType}]],[[${childItem.id}]])"
@@ -158,8 +158,7 @@
      * @param params
      */
     function handleMenuItemClick(element, url, type, id) {
-        element.parentElement.classList.add('active');
-        if (type === "base") {
+        if (type === "link") {
             let $iframe = $("#contentFrame");
             $iframe.attr("src", url);
             $('.nav-item').removeClass('active');
@@ -168,6 +167,7 @@
             $iframe.attr("src", `dynamic/index/${id}`);
             $('.nav-item').removeClass('active');
         }
+        element.parentElement.classList.add('active');
     }
 </script>
 </body>

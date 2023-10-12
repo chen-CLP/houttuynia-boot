@@ -10,14 +10,13 @@ import java.util.Date;
 
 /**
  * 菜单表
- *
  * @TableName sys_menu
  */
-@TableName(value = "sys_menu")
+@TableName(value ="sys_menu")
 @Data
 public class SysMenuDO implements Serializable {
     /**
-     *
+     * 
      */
     @TableId
     private String id;
@@ -46,6 +45,7 @@ public class SysMenuDO implements Serializable {
      * 菜单图标
      */
     private String menuIcon;
+
     /**
      * 菜单类型
      */
@@ -77,22 +77,22 @@ public class SysMenuDO implements Serializable {
     private String description;
 
     /**
-     *
+     * 
      */
     private Date createTime;
 
     /**
-     *
+     * 
      */
     private Date updateTime;
 
     /**
-     *
+     * 
      */
     private String createBy;
 
     /**
-     *
+     * 
      */
     private String updateBy;
 

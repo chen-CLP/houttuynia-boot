@@ -11,6 +11,7 @@
         <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
         <result property="menuNum" column="menu_num" jdbcType="INTEGER"/>
         <result property="menuIcon" column="menu_icon" jdbcType="VARCHAR"/>
+        <result property="menuType" column="menu_type" jdbcType="VARCHAR"/>
         <result property="openType" column="open_type" jdbcType="INTEGER"/>
         <result property="buttonConf" column="button_conf" jdbcType="VARCHAR"/>
         <result property="queryConf" column="query_conf" jdbcType="VARCHAR"/>
@@ -22,18 +23,32 @@
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
         <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
     </resultMap>
-
+    <resultMap id="MenuDetailsDtoMap" type="com.houttuynia.web.system.dto.MenuDetailsDto">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+        <result property="menuUrl" column="menu_url" jdbcType="VARCHAR"/>
+        <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="menuNum" column="menu_num" jdbcType="INTEGER"/>
+        <result property="menuIcon" column="menu_icon" jdbcType="VARCHAR"/>
+        <result property="menuType" column="menu_type" jdbcType="VARCHAR"/>
+        <result property="openType" column="open_type" jdbcType="INTEGER"/>
+        <result property="buttonConf" column="button_conf" jdbcType="VARCHAR"/>
+        <result property="queryConf" column="query_conf" jdbcType="VARCHAR"/>
+        <result property="fieldConf" column="field_conf" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="parentName" column="parent_name" jdbcType="VARCHAR"/>
+    </resultMap>
     <sql id="Base_Column_List">
         id,parent_id,menu_url,
         menu_name,menu_num,menu_icon,
-        open_type,button_conf,query_conf,
-        field_conf,description,create_time,
-        update_time,create_by,update_by,
-        del_flag
+        menu_type,open_type,button_conf,
+        query_conf,field_conf,description,
+        create_time,update_time,create_by,
+        update_by,del_flag
     </sql>
-    <select id="getDtoById" resultType="com.houttuynia.web.system.dto.MenuDetailsDto"
+    <select id="getDtoById" resultMap="MenuDetailsDtoMap"
             parameterType="java.lang.String">
-        select *, b.menu_name as parentName
+        select a.*, b.menu_name as parent_name
         from sys_menu a
                  left join sys_menu b on a.parent_id = b.id
         where a.id = #{id}

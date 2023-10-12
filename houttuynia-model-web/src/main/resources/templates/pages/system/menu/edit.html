@@ -13,14 +13,18 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">父级目录：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text form-input-single" id="parentName" name="parentName" th:value="${menuDetails.parentName}" readonly/>
+                        <input type="text" class="form-input-text form-input-single" id="parentName" name="parentName"
+                               th:value="${menuDetails.parentName}" readonly/>
                         <input id="parentId" name="parentId" th:value="${menuDetails.parentId}" hidden/>
                     </div>
                 </div>
                 <div class=" form-group-a row-item">
                     <label class="col-form-label">菜单名称：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="menuName" name="menuName"  th:value="${menuDetails.menuName}"/>
+                        <input type="text" class="form-input-text " id="menuName" name="menuName"
+                               th:value="${menuDetails.menuName}"/>
+                        <input id="id" name="id" th:value="${menuDetails.id}" hidden/>
+
                     </div>
                 </div>
             </div>
@@ -28,15 +32,30 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">链接地址：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="menuUrl" name="menuUrl" th:value="${menuDetails.menuUrl}" style="width: 65%"/>
+                        <input type="text" class="form-input-text " id="menuUrl" name="menuUrl"
+                               th:value="${menuDetails.menuUrl}" style="width: 65%"/>
                         <i class="layui-icon layui-icon-search" style="cursor: pointer; margin: 13px 0 0 15px"
                            onclick="openApiModel()"></i>
                     </div>
                 </div>
                 <div class="form-group-a row-item">
+                    <label class="col-form-label">菜单类型：</label>
+                    <div class="col-sm-input" style="width: 150px">
+                        <div class="layui-form">
+                            <input type="radio" name="menuType" value="link" title="链接页面"
+                                   th:checked="${menuDetails.menuType eq 'link'}">
+                            <input type="radio" name="menuType" value="dynamic" title="动态页面"
+                                   th:checked="${menuDetails.menuType eq 'dynamic'}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-a row-item">
                     <label class="col-form-label">顺序：</label>
-                    <div class="col-sm-input">
-                        <input type="number" class="form-input-text " id="menuNum" name="menuNum" th:value="${menuDetails.menuNum}" style="width:65%"/>
+                    <div class="col-sm-input" style="width: 100px">
+                        <input type="number" class="form-input-text " id="menuNum" name="menuNum" min="0"
+                               th:value="${menuDetails.menuNum}"
+                               style="width: 100%"/>
                     </div>
                 </div>
             </div>
@@ -45,7 +64,8 @@
                 <div class="form-group-a row-item">
                     <label class="col-form-label">图标：</label>
                     <div class="col-sm-input">
-                        <input type="text" class="form-input-text " id="menuIcon" name="menuIcon" th:value="${menuDetails.menuIcon}" style="width:65%"/>
+                        <input type="text" class="form-input-text " id="menuIcon" name="menuIcon"
+                               th:value="${menuDetails.menuIcon}" style="width:65%"/>
                         <i id="ico-btn" class="layui-icon layui-icon-search" onclick="openIconsHtml('menuIcon')"
                            style="cursor: pointer; margin: 13px 0 0 15px"></i>
                     </div>
@@ -54,8 +74,10 @@
                     <label class="col-form-label">打开方式：</label>
                     <div class="col-sm-input">
                         <div class="layui-form">
-                            <input type="radio" name="openType" value="1" title="内部IFrame" th:checked="${menuDetails.openType eq '1'}">
-                            <input type="radio" name="openType" value="2" title="新窗口"  th:checked="${menuDetails.openType eq '2'}">
+                            <input type="radio" name="openType" value="1" title="内部IFrame"
+                                   th:checked="${menuDetails.openType eq 1}">
+                            <input type="radio" name="openType" value="2" title="新窗口"
+                                   th:checked="${menuDetails.openType eq 2}">
                         </div>
                     </div>
                 </div>
@@ -182,7 +204,12 @@
 <div th:include="include::footerJs"></div>
 <script th:inline="javascript">
     const menuDetails = [[${menuDetails}]];
+    console.log(menuDetails);
     let formId1 = 0, formId2 = 0, formId3 = 0;
+    let fieldConf = JSON.parse(menuDetails.fieldConf);
+    let queryConf = JSON.parse(menuDetails.queryConf);
+    let buttonConf = JSON.parse(menuDetails.buttonConf);
+
     $(function () {
         layui.use(function () {
             let element = layui.element;
@@ -196,9 +223,9 @@
                 location.hash = hashName + '=' + this.getAttribute('lay-id');
             });
         });
-        handleAddRow1();
-        handleAddRow2();
-        handleAddRow3();
+        fieldConf.forEach(handleAddRow1);
+        queryConf.forEach(handleAddRow2);
+        buttonConf.forEach(handleAddRow3);
     })
 
     function getFormData(id, num) {
@@ -228,6 +255,8 @@
             data: JSON.stringify(data),
             success: function (res) {
                 if (res.code === 200) {
+                    let index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
                 }
             },
             error: function () {
@@ -250,7 +279,7 @@
     }
 
     /**
-     * 处理新增行
+     * 列表配置
      * @param info
      */
     function handleAddRow1(info) {
@@ -258,16 +287,16 @@
         let tmItem = document.createElement('div');
         tmItem.innerHTML = `<form id="fieldForm${formId1}">
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="number" name="fieldLocal" class="layui-input" placeholder="请输入显示位置">
+                                                <input type="number" name="fieldLocal" class="layui-input" placeholder="请输入显示位置" min="0" value="${info.fieldLocal}">
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段">
+                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段" value="${info.fieldName}">
                                             </div>
                                              <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="fieldLabel" class="layui-input" placeholder="请输入字段名称">
+                                                <input type="text" name="fieldLabel" class="layui-input" placeholder="请输入字段名称" value="${info.fieldLabel}">
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text"  name="fieldDesc" class="layui-input" placeholder="请输入字段备注">
+                                                <input type="text"  name="fieldDesc" class="layui-input" placeholder="请输入字段备注"  value="${info.fieldDesc}">
                                             </div>
                                             <div class="tab-tr" style="width: 100px">
                                              <i style="line-height: 38px;font-size: 24px;" class="layui-icon layui-icon-delete" onclick="handleRemoveRow(this,'#content1')"></i>
@@ -278,24 +307,28 @@
         formId1++;
     }
 
+    /**
+     * 查询配置
+     * @param info
+     */
     function handleAddRow2(info) {
         let $fieldContent = $("#content2");
         let tmItem = document.createElement('div');
         tmItem.innerHTML = ` <form id="queryForm${formId2}">
                                         <div class="tab-tr" style="width: 140px">
-                                            <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段名称">
+                                            <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段名称" value="${info.fieldName}">
                                         </div>
                                         <div class="tab-tr" style="width: 140px">
-                                            <input type="text" name="queryDesc" class="layui-input" placeholder="请输入查询描述">
+                                            <input type="text" name="queryDesc" class="layui-input" placeholder="请输入查询描述" value="${info.queryDesc}">
                                         </div>
                                         <div class="tab-tr" style="width: 140px">
-                                            <input type="text" name="queryInputType" class="layui-input" placeholder="请选择控件类型">
+                                            <input type="text" name="queryInputType" class="layui-input" placeholder="请选择控件类型" value="${info.queryInputType}">
                                         </div>
                                         <div class="tab-tr" style="width: 100px">
-                                            <input type="text" name="dictCode"  class="layui-input">
+                                            <input type="text" name="dictCode"  class="layui-input" value="${info.dictCode}">
                                         </div>
                                         <div class="tab-tr" style="width: 100px">
-                                            <input type="text" name="defaultVal" class="layui-input">
+                                            <input type="text" name="defaultVal" class="layui-input" value="${info.defaultVal}">
                                         </div>
                                          <div class="tab-tr" style="width: 100px">
                                              <i style="line-height: 38px;font-size: 24px;" class="layui-icon layui-icon-delete" onclick="handleRemoveRow(this,'#content2')"></i>
@@ -306,17 +339,21 @@
         formId2++;
     }
 
+    /**
+     * 按钮配置
+     * @param info
+     */
     function handleAddRow3(info) {
         layui.use(function () {
             let $fieldContent = $("#content3")[0];
             let tmItem = document.createElement('div');
             tmItem.innerHTML = `<form id="btnForm${formId3}">
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="btnName" class="layui-input" placeholder="请输入按钮名称">
+                                                <input type="text" name="btnName" class="layui-input" placeholder="请输入按钮名称" value="${info.btnName}">
                                             </div>
 
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="btnUrl" class="layui-input" placeholder="请输入URL">
+                                                <input type="text" name="btnUrl" class="layui-input" placeholder="请输入URL" value="${info.btnUrl}">
                                             </div>
 
                                             <div class="tab-tr" style="width: 140px">
@@ -327,17 +364,17 @@
                                               </select>
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入参数字段">
+                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入参数字段" value="${info.fieldName}">
                                             </div>
 
                                             <div class="tab-tr" style="width: 140px">
                                                 <input type="text" name="btnIcon" style="width: 110px" class="layui-input" id="btn${formId3}"
-                                                       placeholder="图标">
+                                                       placeholder="图标" value="${info.btnIcon}">
                                                 <i id="ico-btn" class="layui-icon layui-icon-search" onclick="openIconsHtml('btn${formId3}')"
                                                    style="cursor: pointer; margin: 13px 0 0 5px"></i>
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="btnHint" class="layui-input" placeholder="请输入提示信息">
+                                                <input type="text" name="btnHint" class="layui-input" placeholder="请输入提示信息" value="${info.btnHint}">
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
                                                 <div class="layui-form" style="margin-left: 5px">
@@ -356,6 +393,11 @@
         });
     }
 
+    /**
+     * 移除行
+     * @param item
+     * @param id
+     */
     function handleRemoveRow(item, id) {
         let tm = item.parentElement.parentElement.parentElement;
         let $fieldContent = $(id)[0];

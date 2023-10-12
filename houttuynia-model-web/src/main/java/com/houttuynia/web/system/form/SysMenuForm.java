@@ -53,7 +53,10 @@ public class SysMenuForm {
      * 菜单图标
      */
     private String menuIcon;
-
+    /**
+     * 菜单图标
+     */
+    private String menuType;
     /**
      * 打开方式
      */

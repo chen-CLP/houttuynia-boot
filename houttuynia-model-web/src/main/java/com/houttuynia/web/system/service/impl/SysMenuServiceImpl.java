@@ -43,7 +43,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
     @Override
     public void saveOrUpdate(SysMenuForm sysMenuForm) {
         SysMenuDO menuDO = this.getById(sysMenuForm.getId());
-
         if (Objects.isNull(menuDO)) {
             menuDO = new SysMenuDO();
             BeanUtils.copyProperties(sysMenuForm, menuDO);

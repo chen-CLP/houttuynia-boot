@@ -1,22 +1,16 @@
 package com.houttuynia.web.system.controller;
 
-import cn.hutool.core.util.ArrayUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.houttuynia.core.common.Result;
-import com.houttuynia.core.utils.ArrayUtils;
 import com.houttuynia.core.utils.SqlUtils;
-import com.houttuynia.web.mybatis.MyBatisXmlReload;
 import com.houttuynia.web.system.domain.SysApiDO;
 import com.houttuynia.web.system.form.ApiForm;
 import com.houttuynia.web.system.service.SysApiService;
 import com.houttuynia.web.system.vo.ApiBaseVo;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,7 +27,7 @@ import java.util.UUID;
  */
 @RequestMapping("system/api")
 @Controller
-public class ApiController {
+public class SysApiController {
     @Resource
     private SysApiService apiService;
     @Resource
@@ -88,7 +82,14 @@ public class ApiController {
     @ResponseBody
     public Result get(@PathVariable String id, @RequestParam Map<String, Object> param) {
         String nameSpace = SqlUtils.getSelectPath(id);
-        PageHelper.startPage(1, 10);
+        Integer num = Integer.valueOf((String) param.get("page"));
+        Integer limit = Integer.valueOf((String) param.get("limit"));
+        if (Objects.nonNull(num) && Objects.nonNull(limit)) {
+            PageHelper.startPage(num, limit);
+            List<Object> list = sqlSession.selectList(nameSpace, param);
+            PageInfo pageInfo = new PageInfo(list);
+            return Result.ok().data(pageInfo);
+        }
         return Result.ok().data(sqlSession.selectList(nameSpace, param));
     }
 

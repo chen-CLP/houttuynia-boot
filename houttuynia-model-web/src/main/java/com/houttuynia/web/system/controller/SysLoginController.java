@@ -1,31 +1,20 @@
 package com.houttuynia.web.system.controller;
 
-import com.houttuynia.core.common.Result;
-import com.houttuynia.core.utils.JwtTokenUtil;
-import com.houttuynia.web.system.domain.SysMenuDO;
-import com.houttuynia.web.system.form.LoginUserForm;
 import com.houttuynia.core.utils.RandImageUtil;
 import com.houttuynia.core.utils.RedisUtil;
 import com.houttuynia.web.system.service.SysMenuService;
 import com.houttuynia.web.system.vo.MenuVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Login
@@ -35,7 +24,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Controller
-public class LoginController {
+public class SysLoginController {
     @Resource
     private RedisUtil redisUtil;
     private static final String CODE_KEY = "LOGIN_CODE_KEY";
