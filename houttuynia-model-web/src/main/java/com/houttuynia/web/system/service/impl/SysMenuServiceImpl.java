@@ -46,6 +46,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO>
         if (Objects.isNull(menuDO)) {
             menuDO = new SysMenuDO();
             BeanUtils.copyProperties(sysMenuForm, menuDO);
+            if (Objects.isNull(menuDO.getParentId())) {
+                menuDO.setParentId("0");
+            }
             sysMenuMapper.insert(menuDO);
         } else {
             BeanUtils.copyProperties(sysMenuForm, menuDO);

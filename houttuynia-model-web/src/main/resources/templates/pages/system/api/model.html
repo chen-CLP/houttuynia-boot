@@ -41,7 +41,7 @@
                     {type: 'radio', fixed: 'left'},
                     {field: 'apiName', title: '接口名称', width: 120},
                     {field: 'apiUrl', title: '接口URL', minWidth: 160},
-                    {field: 'apiDesc', edit: 'textarea',title: '接口描述', minWidth: 80},
+                    {field: 'apiDesc', edit: 'textarea', title: '接口描述', minWidth: 80},
                 ]
             ],
             maxHeight: 520,
@@ -55,9 +55,11 @@
             let checkStatus = table.checkStatus(id);
             switch (obj.event) {
                 case 'getCheckData':
+                    let params = new URLSearchParams(window.location.search);
+                    let callBackId = params.get("id");
                     let data = checkStatus.data[0];
                     let index = parent.layer.getFrameIndex(window.name);
-                    parent.callBckCheckApi(data);
+                    parent.callBckCheckApi(data.apiUrl, callBackId);
                     parent.layer.close(index);
                     break;
             }

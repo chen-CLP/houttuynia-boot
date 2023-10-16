@@ -29,7 +29,6 @@
     <div th:include="include::footerJs"></div>
     <script th:inline="javascript">
         let menuList = [[${menuList}]];
-        console.log(menuList)
         const _parent = window.parent;
         layui.use(function () {
             const treeTable = layui.treeTable;
@@ -112,7 +111,7 @@
             });
         }
 
-        function handleAdd() {
+        function handleAdd(params) {
             _parent.layer.open({
                 type: 2, // page 层类型
                 area: ['1300px', '900px'],
@@ -121,7 +120,7 @@
                 shadeClose: true, // 点击遮罩区域，关闭弹层
                 maxmin: true, // 允许全屏最小化
                 anim: 0, // 0-6 的动画形式，-1 不开启
-                content: ['/system/menu/add', 'yes']
+                content: [`/system/menu/add/${params ? params.id : '0'}`, 'yes'],
             });
         }
     </script>

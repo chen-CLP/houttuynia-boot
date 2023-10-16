@@ -35,17 +35,19 @@
                         <input type="text" class="form-input-text " id="menuUrl" name="menuUrl"
                                th:value="${menuDetails.menuUrl}" style="width: 65%"/>
                         <i class="layui-icon layui-icon-search" style="cursor: pointer; margin: 13px 0 0 15px"
-                           onclick="openApiModel()"></i>
+                           onclick="openApiModel('menuUrl')"></i>
                     </div>
                 </div>
                 <div class="form-group-a row-item">
                     <label class="col-form-label">菜单类型：</label>
                     <div class="col-sm-input" style="width: 150px">
                         <div class="layui-form">
-                            <input type="radio" name="menuType" value="link" title="链接页面"
-                                   th:checked="${menuDetails.menuType eq 'link'}">
-                            <input type="radio" name="menuType" value="dynamic" title="动态页面"
-                                   th:checked="${menuDetails.menuType eq 'dynamic'}">
+                            <div class="layui-form-item">
+                                <input type="radio" name="menuType" value="link" title="链接页面"
+                                       lay-filter="menu-radio-filter" checked>
+                                <input type="radio" name="menuType" value="dynamic" title="动态页面"
+                                       lay-filter="menu-radio-filter">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,7 +206,6 @@
 <div th:include="include::footerJs"></div>
 <script th:inline="javascript">
     const menuDetails = [[${menuDetails}]];
-    console.log(menuDetails);
     let formId1 = 0, formId2 = 0, formId3 = 0;
     let fieldConf = JSON.parse(menuDetails.fieldConf);
     let queryConf = JSON.parse(menuDetails.queryConf);
@@ -222,6 +223,16 @@
             element.on('tab(test-hash)', function (obj) {
                 location.hash = hashName + '=' + this.getAttribute('lay-id');
             });
+
+            layui.form.on('radio(menu-radio-filter)', function (data) {
+                let value = data.value;
+                if (value === "dynamic") {
+                    $("#dynamic-conf")[0].style.display = 'flex';
+                } else {
+                    $("#dynamic-conf")[0].style.display = 'none';
+                }
+            });
+
         });
         fieldConf.forEach(handleAddRow1);
         queryConf.forEach(handleAddRow2);
@@ -265,19 +276,6 @@
         });
     }
 
-    function openApiModel() {
-        layer.open({
-            type: 2,
-            title: '图标列表',
-            content: [`/system/api/model`, 'yes'],
-            area: ['980px', '70%'],
-        });
-    }
-
-    function callBckCheckApi(data) {
-        $("#menUrl").val(data.apiUrl);
-    }
-
     /**
      * 列表配置
      * @param info
@@ -287,16 +285,16 @@
         let tmItem = document.createElement('div');
         tmItem.innerHTML = `<form id="fieldForm${formId1}">
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="number" name="fieldLocal" class="layui-input" placeholder="请输入显示位置" min="0" value="${info.fieldLocal}">
+                                                <input type="number" name="fieldLocal" class="layui-input" placeholder="请输入显示位置" min="0" value="${info ? info.fieldLocal : ''}">
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段" value="${info.fieldName}">
+                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段" value="${info ? info.fieldName : ''}">
                                             </div>
                                              <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="fieldLabel" class="layui-input" placeholder="请输入字段名称" value="${info.fieldLabel}">
+                                                <input type="text" name="fieldLabel" class="layui-input" placeholder="请输入字段名称" value="${info ? info.fieldLabel : ''}">
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text"  name="fieldDesc" class="layui-input" placeholder="请输入字段备注"  value="${info.fieldDesc}">
+                                                <input type="text"  name="fieldDesc" class="layui-input" placeholder="请输入字段备注"  value="${info ? info.fieldDesc : ''}">
                                             </div>
                                             <div class="tab-tr" style="width: 100px">
                                              <i style="line-height: 38px;font-size: 24px;" class="layui-icon layui-icon-delete" onclick="handleRemoveRow(this,'#content1')"></i>
@@ -316,19 +314,19 @@
         let tmItem = document.createElement('div');
         tmItem.innerHTML = ` <form id="queryForm${formId2}">
                                         <div class="tab-tr" style="width: 140px">
-                                            <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段名称" value="${info.fieldName}">
+                                            <input type="text" name="fieldName" class="layui-input" placeholder="请输入字段名称" value="${info ? info.fieldName : ''}">
                                         </div>
                                         <div class="tab-tr" style="width: 140px">
-                                            <input type="text" name="queryDesc" class="layui-input" placeholder="请输入查询描述" value="${info.queryDesc}">
+                                            <input type="text" name="queryDesc" class="layui-input" placeholder="请输入查询描述" value="${info ? info.queryDesc : ''}">
                                         </div>
                                         <div class="tab-tr" style="width: 140px">
-                                            <input type="text" name="queryInputType" class="layui-input" placeholder="请选择控件类型" value="${info.queryInputType}">
+                                            <input type="text" name="queryInputType" class="layui-input" placeholder="请选择控件类型" value="${info ? info.queryInputType : ''}">
                                         </div>
                                         <div class="tab-tr" style="width: 100px">
-                                            <input type="text" name="dictCode"  class="layui-input" value="${info.dictCode}">
+                                            <input type="text" name="dictCode"  class="layui-input" value="${info ? info.dictCode : ''}">
                                         </div>
                                         <div class="tab-tr" style="width: 100px">
-                                            <input type="text" name="defaultVal" class="layui-input" value="${info.defaultVal}">
+                                            <input type="text" name="defaultVal" class="layui-input" value="${info ? info.defaultVal : ''}">
                                         </div>
                                          <div class="tab-tr" style="width: 100px">
                                              <i style="line-height: 38px;font-size: 24px;" class="layui-icon layui-icon-delete" onclick="handleRemoveRow(this,'#content2')"></i>
@@ -349,32 +347,31 @@
             let tmItem = document.createElement('div');
             tmItem.innerHTML = `<form id="btnForm${formId3}">
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="btnName" class="layui-input" placeholder="请输入按钮名称" value="${info.btnName}">
+                                                <input type="text" name="btnName" class="layui-input" placeholder="请输入按钮名称" value="${info ? info.btnName : ''}">
                                             </div>
 
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="btnUrl" class="layui-input" placeholder="请输入URL" value="${info.btnUrl}">
+                                                <input type="text" name="btnUrl" class="layui-input" placeholder="请输入URL" value="${info ? info.btnUrl : ''}">
                                             </div>
 
                                             <div class="tab-tr" style="width: 140px">
                                              <select class="layui-input" lay-filter="demo-select-filter" name="queryType">
-                                               <option value="AAA">选项 A</option>
-                                               <option value="BBB">选项 B</option>
-                                               <option value="CCC">选项 C</option>
+                                               <option value="1" ${info && info.queryType === '1' ? 'selected' : ''}>表格工具栏</option>
+                                               <option value="2" ${info && info.queryType === '2' ? 'selected' : ''}>明细工具栏</option>
                                               </select>
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入参数字段" value="${info.fieldName}">
+                                                <input type="text" name="fieldName" class="layui-input" placeholder="请输入参数字段" value="${info ? info.fieldName : ''}">
                                             </div>
 
                                             <div class="tab-tr" style="width: 140px">
                                                 <input type="text" name="btnIcon" style="width: 110px" class="layui-input" id="btn${formId3}"
-                                                       placeholder="图标" value="${info.btnIcon}">
+                                                       placeholder="图标" value="${info ? info.btnIcon : ''}">
                                                 <i id="ico-btn" class="layui-icon layui-icon-search" onclick="openIconsHtml('btn${formId3}')"
                                                    style="cursor: pointer; margin: 13px 0 0 5px"></i>
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
-                                                <input type="text" name="btnHint" class="layui-input" placeholder="请输入提示信息" value="${info.btnHint}">
+                                                <input type="text" name="btnHint" class="layui-input" placeholder="请输入提示信息" value="${info ? info.btnHint : ''}">
                                             </div>
                                             <div class="tab-tr" style="width: 140px">
                                                 <div class="layui-form" style="margin-left: 5px">

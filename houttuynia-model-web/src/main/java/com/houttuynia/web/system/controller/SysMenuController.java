@@ -1,17 +1,20 @@
 package com.houttuynia.web.system.controller;
 
 import com.houttuynia.core.common.Result;
+import com.houttuynia.web.system.domain.SysMenuDO;
 import com.houttuynia.web.system.form.SysMenuForm;
 import com.houttuynia.web.system.service.SysMenuService;
 import com.houttuynia.web.system.dto.MenuDetailsDto;
 import com.houttuynia.web.system.vo.MenuVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * MenuController
@@ -32,8 +35,12 @@ public class SysMenuController {
         return "pages/system/menu/list";
     }
 
-    @GetMapping("/add")
-    public String add() {
+    @GetMapping("/add/{id}")
+    public String add(@PathVariable String id, Model model) {
+        if (Objects.nonNull(id) && !"0".equals(id)) {
+            SysMenuDO menuDO = sysMenuService.getById(id);
+            model.addAttribute("info", menuDO);
+        }
         return "pages/system/menu/add";
     }
 

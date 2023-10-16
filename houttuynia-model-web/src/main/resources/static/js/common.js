@@ -18,3 +18,24 @@ function openIconsHtml(id) {
 function setIconVal(icon, elementId) {
     $(`#${elementId}`).val(icon);
 }
+
+/**
+ * 打开接口列表
+ * @param id
+ */
+function openApiModel(id) {
+    layer.open({
+        type: 2,
+        title: '接口列表',
+        content: [`/system/api/model?id=${id}`, 'yes'],
+        area: ['980px', '70%'],
+    });
+}
+
+/**
+ * 设置回调数据
+ * @param data
+ */
+function callBckCheckApi(apiUrl, elementId) {
+    $(`#${elementId}`).val(apiUrl);
+}

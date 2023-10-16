@@ -7,18 +7,8 @@
 <body>
 <div class="container-scroller">
     <div class="card">
-        <table class="layui-hide" id="id-data-table" lay-filter="data-table"></table>
+        <table class="layui-hide" id="id-data-table" lay-filter="id-data-table"></table>
     </div>
-    <script type="text/html" id="TPL-treeTable-demo-tools">
-        <div class="layui-btn-container">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="addChild">新增</a>
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delete"
-                    onclick="handleDel()">
-                <i class="layui-icon">&#xe640;</i>
-            </button>
-        </div>
-    </script>
 </div>
 <div th:include="include::footerJs"></div>
 <script>
@@ -27,7 +17,7 @@
      * @param fieldConf
      * @returns {*[]}
      */
-    function getCols(fieldConf) {
+    function createCols(fieldConf) {
         let tmConf = JSON.parse(fieldConf);
         let cols = [];
         if (tmConf && tmConf instanceof Array && tmConf.length > 0) {
@@ -39,36 +29,88 @@
         }
         return cols;
     }
+
+    /**
+     * 表格工具创建
+     * @param tableToolBarConf
+     * @returns {string}
+     */
+    function createTableToolbar(tableToolBarConf) {
+        let btStr = '';
+        tableToolBarConf.forEach((item, index) => {
+            btStr += ` <button type="button" class="layui-btn layui-btn-xs layui-btn-sm" lay-event="${index}">
+                                         <i class="${item.btnIcon}"></i> ${item.btnName}
+                                    </button>`;
+        })
+        return `<div class="layui-btn-container" id="div-toolbar">${btStr}</div>`;
+    }
+
+
 </script>
 <script th:inline="javascript">
-    let menuInfo = [[${menuInfo}]];
-    let dataUrl = menuInfo.menuUrl;
-    let cols = getCols(menuInfo.fieldConf);
-    layui.use(function () {
-        let treeTable = layui.treeTable;
-        treeTable.render({
-            elem: '#id-data-table',
-            url: "/" + dataUrl, // 此处为静态模拟数据，实际使用时需换成真实接口
-            parseData: function (res) { //res 即为原始返回的数据
-                let code = 0;
-                if (res.code !== 200) {
-                    code = -1;
+    const menuInfo = [[${menuInfo}]];
+    const btConf = JSON.parse(menuInfo.buttonConf);
+    let tableRowConf, tableToolBarConf;
+    if (btConf && btConf instanceof Array) {
+        tableRowConf = btConf.filter(item => item.queryType === '2');
+        tableToolBarConf = btConf.filter(item => item.queryType === '1');
+    }
+    $(function () {
+        let dataUrl = menuInfo.menuUrl;
+        let cols = createCols(menuInfo.fieldConf);
+        layui.use(function () {
+            let table = layui.table;
+            tableRowConf && cols.push({
+                title: "操作", templet: () => {
+                    let btStr = '';
+                    tableRowConf.forEach((item, index) => {
+                        btStr += ` <button type="button" class="layui-btn layui-btn-xs layui-btn-sm" lay-event="${index}">
+                                         <i class="${item.btnIcon}"></i> ${item.btnName}
+                                    </button>`;
+                    })
+                    return `<div class="layui-btn-container" id="div-row-toolbar">${btStr}</div>`;
                 }
-                let pageInfo = res.data;
-                return {
-                    "code": code, //解析接口状态
-                    "msg": res.message, //解析提示文本
-                    "count": pageInfo.total, //解析数据长度
-                    "data": pageInfo.list //解析数据列表
-                };
-            },
-            tree: {},
-            maxHeight: '501px',
-            toolbar: '#TPL-treeTable-demo',
-            cols: [cols],
-            page: true
+            })
+            table.render({
+                elem: '#id-data-table',
+                url: "/" + dataUrl, // 此处为静态模拟数据，实际使用时需换成真实接口
+                parseData: function (res) { //res 即为原始返回的数据
+                    let code = 0;
+                    if (res.code !== 200) {
+                        code = -1;
+                    }
+                    let pageInfo = res.data;
+                    return {
+                        "code": code, //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": pageInfo.total, //解析数据长度
+                        "data": pageInfo.list //解析数据列表
+                    };
+                },
+                tree: {},
+                maxHeight: '501px',
+                toolbar: createTableToolbar(tableToolBarConf),
+                cols: [cols],
+                page: true
+            });
+            table.on('tool(id-data-table)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                console.log("tool", obj);
+            });
+
+            table.on('toolbar(id-data-table)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                console.log("toolbar", obj);
+            });
+
         });
-    });
+    })
+
+    /**
+     * 处理
+     * @param event
+     */
+    function handleTableToolBar(event) {
+
+    }
 </script>
 </body>
 </html>
